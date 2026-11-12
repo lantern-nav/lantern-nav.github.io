@@ -1,9 +1,12 @@
 import * as THREE from "./assets/vendor/three.module.js";
 import { OrbitControls } from "./assets/vendor/OrbitControls.js";
 import {
-  SETTINGS, norm, sub, generateScene, renderDepth, bodyState, curveFromEndpoint,
+  SETTINGS, norm, sub, generateScene, renderDepth, bodyState,
   evaluateCurve, calculateYaw, clearance, validateScene
-} from "./sandbox-core.js?v=compact-selected-20261112";
+} from "./sandbox-core.js?v=level-terminal-20261113";
+import {
+  WEB_EXECUTION, levelCurve, chooseLevelCandidate, terminalCurve, planarClearance, assessRun
+} from "./demo-execution.js?v=level-terminal-20261113";
 
 const $ = id => document.getElementById(id);
 if (new URLSearchParams(location.search).has("embed")) document.body.classList.add("embedded");
@@ -13,6 +16,7 @@ let epoch = 0, modelReady = false, selected = -1, inferenceMs = 0, metadata;
 let lastPrediction = null, animationStart = 0, previousPosition = null;
 let seedCatalog = null, qualifying = false, cancelQualification = false;
 let sceneSelection = { mode: "custom" };
+let terminalPlan = null;
 const qualificationAttempts = [];
 const viewport = $("viewport");
 const scene = new THREE.Scene();
@@ -174,7 +178,8 @@ function updateStats() {
   $("speed-arc").style.strokeDasharray = `${Math.min(100, speed / 5 * 100)} 100`;
   $("sim-time").textContent = simTime.toFixed(1);
   $("goal-distance").textContent = norm(sub(sceneData.goal, state.p)).toFixed(2);
-  $("selected-query").textContent = selected < 0 ? "--" : String(selected + 1).padStart(2, "0");
+  $("selected-query").textContent = terminalPlan ? "Terminal" :
+    selected < 0 ? "--" : String(selected + 1).padStart(2, "0");
   $("inference-ms").textContent = inferenceMs ? inferenceMs.toFixed(1) : "--";
   $("run").querySelector("span").textContent = running ? "Pause" : "Run LANTERN";
   $("run").querySelector("img").src = `assets/${running ? "pause" : "play"}.svg`;
@@ -194,11 +199,11 @@ function reset() {
     yaw: Math.atan2(sceneData.goal[1] - sceneData.start[1], sceneData.goal[0] - sceneData.start[0]) };
   simTime = 0; arrivalHold = 0; result = null; selected = -1; inferenceMs = 0;
   history = []; path = [[...state.p]]; lastPrediction = null; previousPosition = null;
+  terminalPlan = null;
   releaseGroup(candidateGroup);
   startMarker.position.set(...sceneData.start);
   goalMarker.position.set(...sceneData.goal);
-  $("start-height").value = sceneData.start[2];
-  $("goal-height").value = sceneData.goal[2];
+  $("flight-height").value = sceneData.start[2];
   drone.position.set(...state.p); drone.rotation.z = state.yaw;
   drawDepth(renderDepth(state.p, state.yaw, sceneData.obstacles));
   updatePath(); updateStats();
@@ -210,6 +215,9 @@ function setScene(data, selection = { mode: "custom" }) {
   sceneSelection = selection;
   if (["pillar", "box", "wall", "mixed"].includes(checked.kind)) $("scene-kind").value = checked.kind;
   if (Number.isInteger(checked.seed)) $("scene-seed").value = checked.seed;
+  $("obstacle-count").max = Math.max(60, checked.obstacles.length);
+  $("obstacle-count").value = checked.obstacles.length;
+  $("count-label").value = checked.obstacles.length;
   drawObstacles();
   reset();
   frameScene();
@@ -284,21 +292,40 @@ async function planningStep({ quiet = false } = {}) {
     if (activeEpoch !== epoch) return false;
     if (![...prediction.endstates, ...prediction.scores].every(Number.isFinite))
       throw new Error("Non-finite model prediction.");
-    selected = prediction.scores.indexOf(Math.min(...prediction.scores));
+    const curves = Array.from({ length: 24 }, (_, i) =>
+      levelCurve(state, Array.from(prediction.endstates.slice(i * 9, (i + 1) * 9))));
+    if (!terminalPlan) terminalPlan = terminalCurve(state, sceneData.goal, sceneData.obstacles);
+    selected = chooseLevelCandidate(curves, prediction.scores, sceneData.obstacles);
+    if (!terminalPlan && selected < 0) {
+      finish("blocked", "No feasible level candidate"); updateStats(); return false;
+    }
+    if (terminalPlan) selected = -1;
     inferenceMs = prediction.inferenceMs;
     lastPrediction = { endstates: Array.from(prediction.endstates),
-      scores: Array.from(prediction.scores), selected };
-    const curves = Array.from({ length: 24 }, (_, i) =>
-      curveFromEndpoint(state, Array.from(prediction.endstates.slice(i * 9, (i + 1) * 9))));
-    if (!quiet) { drawCandidates(curves, selected); drawDepth(depth); }
+      scores: Array.from(prediction.scores), selected,
+      networkSelected: prediction.scores.indexOf(Math.min(...prediction.scores)),
+      execution: terminalPlan ? "terminal-quintic" : "level-filtered",
+      terminalDuration: terminalPlan?.duration, terminalElapsed: terminalPlan?.elapsed };
+    if (!quiet) {
+      if (terminalPlan) {
+        releaseGroup(candidateGroup);
+        const points = Array.from({ length: 61 }, (_, i) =>
+          new THREE.Vector3(...evaluateCurve(terminalPlan.curve,
+            terminalPlan.duration * i / 60, terminalPlan.duration).p));
+        candidateGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), candidateMaterials[1]));
+      } else drawCandidates(curves, selected);
+      drawDepth(depth);
+    }
     previousPosition = [...state.p]; animationStart = performance.now();
     const curve = curves[selected], yawBefore = state.yaw;
     let elapsed = SETTINGS.dt, next;
     // Sample the executed 100 ms segment at 10 ms for contact detection.
     for (let i = 1; i <= 10; i++) {
-      next = evaluateCurve(curve, i * .01);
+      next = terminalPlan ? evaluateCurve(terminalPlan.curve,
+        Math.min(terminalPlan.duration, terminalPlan.elapsed + i * .01), terminalPlan.duration)
+        : evaluateCurve(curve, i * .01);
       const contact = clearance(next.p, sceneData.obstacles);
-      if (contact.distance <= 0) {
+      if (contact.distance <= 0 || planarClearance(next.p, sceneData.obstacles) <= 0) {
         elapsed = i * .01;
         finish("collision", `Collision · ${contact.id === "ground" ? "ground" : "obstacle " + contact.id}`);
         break;
@@ -308,6 +335,7 @@ async function planningStep({ quiet = false } = {}) {
         elapsed = i * .01; finish("bounds", "Scene boundary reached"); break;
       }
     }
+    if (terminalPlan) terminalPlan.elapsed += elapsed;
     simTime += elapsed;
     state = { ...next, yaw: calculateYaw(next.v, sub(sceneData.goal, next.p), yawBefore, elapsed) };
     path.push([...state.p]);
@@ -318,8 +346,8 @@ async function planningStep({ quiet = false } = {}) {
     if (!result && arrivalHold >= SETTINGS.arrivalHold - 1e-8) finish("arrived", "Arrived & stopped");
     if (!result && simTime >= SETTINGS.timeout - 1e-8) finish("timeout", "40 s timeout");
     history.push({ t: simTime, p: [...state.p], v: [...state.v], a: [...state.a],
-      yaw: state.yaw, selected, predictedScore: prediction.scores[selected],
-      inferenceMs, result });
+      yaw: state.yaw, selected, predictedScore: selected < 0 ? null : prediction.scores[selected],
+      inferenceMs, result, execution: terminalPlan ? "terminal-quintic" : "level-filtered" });
     if (!quiet) {
       if (!result) setStatus(running ? "Running LANTERN" : "Paused");
       updateStats();
@@ -373,7 +401,7 @@ async function randomizeScene() {
   }
   const previous = structuredClone(sceneData), previousSelection = structuredClone(sceneSelection);
   const locked = ["generate", "clear", "scene-kind", "scene-seed", "obstacle-count",
-    "edit-mode", "obstacle-shape", "start-height", "goal-height", "import", "export", "reset"];
+    "edit-mode", "obstacle-shape", "flight-height", "import", "export", "reset"];
   qualifying = true; cancelQualification = false; pause();
   locked.forEach(id => $(id).disabled = true);
   $("randomize").textContent = "Cancel";
@@ -387,11 +415,10 @@ async function randomizeScene() {
       setStatus(`Checking seed · ${attempt}`);
       for (let i = 0; i < 400 && !result && !cancelQualification; i++)
         await planningStep({ quiet: true });
-      const peakAltitude = Math.max(sceneData.start[2], ...history.map(step => step.p[2]));
-      const eligible = result === "arrived" && peakAltitude <= 4;
+      const assessment = assessRun(sceneData, history, result), eligible = assessment.eligible;
       qualificationAttempts.push(structuredClone({
         scene: sceneData, state, history, simTime, result: cancelQualification ? "cancelled" : result,
-        peak_altitude_m: peakAltitude, eligible, success_selected: true
+        assessment, eligible, success_selected: true
       }));
       if (eligible && !cancelQualification) {
         sceneSelection = { mode: "selected", source: "live preflight screening",
@@ -420,12 +447,12 @@ $("clear").addEventListener("click", () => setScene({ ...sceneData, obstacles: [
 $("show-candidates").addEventListener("change", () => {
   candidateGroup.children.forEach(line => { line.visible = line.userData.selected || $("show-candidates").checked; });
 });
-for (const key of ["start", "goal"]) $(key + "-height").addEventListener("change", () => {
-  const value = Number($(key + "-height").value);
-  if (!Number.isFinite(value) || value < .3 || value > 6) {
-    $(key + "-height").value = sceneData[key][2]; return;
+$("flight-height").addEventListener("change", () => {
+  const value = Number($("flight-height").value);
+  if (!Number.isFinite(value) || value < .5 || value > 2.5) {
+    $("flight-height").value = sceneData.start[2]; return;
   }
-  sceneData[key][2] = value; reset();
+  sceneData.start[2] = value; sceneData.goal[2] = value; reset();
   sceneSelection = { mode: "custom" }; drawObstacles();
 });
 $("top-view").addEventListener("click", () => {
@@ -502,7 +529,7 @@ renderer.domElement.addEventListener("pointercancel", () => { drag = null; downP
 
 $("export").addEventListener("click", () => {
   const data = { scene: sceneData, run: { model: metadata, environment: SETTINGS,
-    scene_selection: sceneSelection, qualification_attempts: qualificationAttempts,
+    web_execution: WEB_EXECUTION, scene_selection: sceneSelection, qualification_attempts: qualificationAttempts,
     result: result || (simTime > 0 ? "unfinished" : "not_started"), trajectory: history } };
   const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }));
   const link = document.createElement("a"); link.href = url;
@@ -545,20 +572,23 @@ Promise.all([readyPromise, fetch("assets/planner-metadata.json").then(response =
 }), fetch("assets/demo-seeds.json?v=compact-selected-20261112").then(
   response => response.ok ? response.json() : null)]).then(async ([, model, catalog]) => {
   if (catalog) {
-    const source = await fetch(new URL("./sandbox-core.js?v=compact-selected-20261112", import.meta.url));
-    const digest = await crypto.subtle.digest("SHA-256", await source.arrayBuffer());
-    const hash = [...new Uint8Array(digest)].map(value => value.toString(16).padStart(2, "0")).join("");
-    if (catalog.model_sha256 !== model.onnx_sha256 || catalog.generator_sha256 !== hash)
-      throw new Error("Seed catalog does not match the current model or scene generator.");
-    seedCatalog = catalog;
-    if (epoch === initialSceneEpoch) setScene(
+    const hashes = await Promise.all(["sandbox-core.js", "demo-execution.js", "demo.js"].map(async name => {
+      const source = await fetch(new URL(name, import.meta.url));
+      if (!source.ok) throw new Error("Demo source could not be checked.");
+      const digest = await crypto.subtle.digest("SHA-256", await source.arrayBuffer());
+      return [...new Uint8Array(digest)].map(value => value.toString(16).padStart(2, "0")).join("");
+    }));
+    if (catalog.model_sha256 === model.onnx_sha256 && catalog.generator_sha256 === hashes[0] &&
+        catalog.execution_sha256 === hashes[1] && catalog.controller_sha256 === hashes[2]) seedCatalog = catalog;
+    else catalog = null;
+    if (catalog && epoch === initialSceneEpoch) setScene(
       generateScene(catalog.default.kind, catalog.default.seed, catalog.default.count),
       { mode: "selected", source: "offline-screened seed catalog",
         catalog_version: catalog.version, success_selected: true });
   }
   metadata = model; modelReady = true;
   $("randomize").disabled = false;
-  $("model-label").textContent = "Terminal tuned · ONNX / WASM";
+  $("model-label").textContent = "Level flight · ONNX / WASM";
   setStatus("Ready"); updateStats();
 }).catch(error => {
   setStatus("Model unavailable", "error"); showError(error.message);
@@ -580,7 +610,7 @@ window.lanternSandbox = {
   ready: () => modelReady,
   snapshot: () => structuredClone({ scene: sceneData, state, simTime, result,
     running, busy, selected, prediction: lastPrediction, history, sceneSelection,
-    qualifying, qualificationAttempts }),
+    qualifying, qualificationAttempts, webExecution: WEB_EXECUTION }),
   setScene, generateScene, reset, pause, start, step: planningStep,
   randomize: randomizeScene,
   projectPoint: point => {

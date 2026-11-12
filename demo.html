@@ -8,7 +8,7 @@
   <link rel="icon" href="assets/favicon.png">
   <link rel="stylesheet" href="demo.css">
   <script type="importmap">{"imports":{"three":"./assets/vendor/three.module.js"}}</script>
-  <script src="demo.js?v=compact-selected-20261112" type="module"></script>
+  <script src="demo.js?v=level-terminal-20261113" type="module"></script>
 </head>
 <body>
   <header class="demo-header">
@@ -46,7 +46,7 @@
           <div class="speed-meter"><svg viewBox="0 0 200 118" aria-hidden="true"><path class="gauge-track" d="M 20 100 A 80 80 0 0 1 180 100"/><path id="speed-arc" d="M 20 100 A 80 80 0 0 1 180 100" pathLength="100"/></svg><p><strong id="speed">0.00</strong><span>m/s</span></p></div>
           <dl><div><dt>Simulation</dt><dd><span id="sim-time">0.0</span> s</dd></div><div><dt>Goal distance</dt><dd><span id="goal-distance">24.00</span> m</dd></div><div><dt>Selected query</dt><dd id="selected-query">--</dd></div><div><dt>Browser inference</dt><dd><span id="inference-ms">--</span> ms</dd></div><div><dt>Model setting</dt><dd>5m/s</dd></div></dl>
         </div>
-        <div class="height-fields"><label>Start z<input id="start-height" type="number" min=".3" max="6" step=".1" value="2"></label><label>Goal z<input id="goal-height" type="number" min=".3" max="6" step=".1" value="2"></label></div>
+        <div class="height-fields"><label>Flight z<input id="flight-height" type="number" min=".5" max="2.5" step=".1" value="2"></label><span>Level flight</span></div>
       </aside>
     </div>
     <div class="run-bar">
@@ -62,8 +62,9 @@
   </main>
   <p class="sandbox-note">LANTERN model · <span id="scene-selection">Custom scene</span> · Ideal trajectory tracking</p>
   <details class="model-details"><summary>Model and environment</summary>
-    <p>Randomize uses success-screened demo seeds. Other obstacle counts are screened with live inference before display. These selected examples are separate from the paper's benchmarks. Manually entered seeds and edited scenes are unscreened.</p>
-    <p>The publication weights run locally with web terminal tuning in ONNX Runtime Web. Terminal queries retain the 5 m / 2 m activation range and use zero control residual. Each step renders a new 160 x 96 axial-depth image (90 x 60 degree field of view, 20 m range) and predicts 24 trajectory endpoints and costs. The minimum predicted cost selects the executable quintic curve. The scene is editable; no recorded flight is used.</p>
+    <p>Randomize uses demo seeds screened for fixed-height flight, precise stopping, a final approach without loops, and a total path at most 1.35 times the start-to-goal distance. Other obstacle counts are screened with live inference before display. Manually entered seeds and edited scenes are unscreened. These selected examples are separate from the paper's benchmarks.</p>
+    <p>The publication weights run locally with web terminal tuning in ONNX Runtime Web. Each step renders a new 160 x 96 axial-depth image (90 x 60 degree field of view, 20 m range) and predicts 24 trajectory endpoints and costs. This level-flight demo projects candidates to the chosen height and ranks geometrically feasible candidates by predicted cost. Obstacle footprints are checked so the vehicle cannot fly over them.</p>
+    <p>A separate web execution controller checks a smooth quintic stop near the goal and follows it to rest when its path is clear. This controller uses the generated scene geometry; it is not part of the paper's learned planner. Its settings and seed selection are recorded in run exports. Flights are computed afresh, without recorded trajectories.</p>
     <p>Tracking follows the analytic trajectory reference at 10 Hz, without rigid-body dynamics, sensor noise or transport delay. Collision uses a 0.22 m vehicle radius. Arrival requires 3D error at most 0.1 m and speed at most 0.2m/s for 0.5 s. Runs stop on collision, scene exit or a 40 s timeout. These interactive scenes are separate from the paper's physical simulation and evaluation results.</p>
     <p>Checkpoint SHA-256: <code>9707db065961831e109527476ceb8eb78164b16fd3e5cf58875189e066dae13b</code></p>
     <a href="assets/planner-metadata.json" target="_blank" rel="noopener">Model metadata</a>

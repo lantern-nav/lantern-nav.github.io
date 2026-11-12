@@ -22,8 +22,8 @@
     },
     {
       "path": "assets/demo-seeds.json",
-      "sha256": "4dcae577cf3efe3801de4f5ec778b43722606f5eefa9d5cdee7ec2e5edcf3537",
-      "bytes": 2089
+      "sha256": "f0dc8edfc7575626e3fc20859f272ad37f5c7340efecdbeae8ae2f2712225c02",
+      "bytes": 2447
     },
     {
       "path": "assets/download.svg",
@@ -77,8 +77,8 @@
     },
     {
       "path": "assets/LANTERN_demo_source.zip",
-      "sha256": "7f350cb97d5e367ccc6d50524e971f415b4c74fb5ae2483acd634acfeb0801aa",
-      "bytes": 4539361
+      "sha256": "90dffd9d83b1801ed94523383966b2d38d672728763043853dcebf89bbdbd4b2",
+      "bytes": 4543709
     },
     {
       "path": "assets/LANTERN_multimedia.zip",
@@ -177,8 +177,8 @@
     },
     {
       "path": "assets/planner-metadata.json",
-      "sha256": "58fb06c14c525094cfdb59bd3db5b8a7df2f43a32dc0ca7150fefdbe1d4cdb3b",
-      "bytes": 2168
+      "sha256": "aef30da3f54d0405442f12ec81ec9e3a020d77d18639d57d76beeb63c4a4f5a4",
+      "bytes": 3685
     },
     {
       "path": "assets/play.svg",
@@ -251,24 +251,29 @@
       "bytes": 269
     },
     {
+      "path": "demo-execution.js",
+      "sha256": "74c465df925ef0ab02759cf529f2a5c1831f26d28ee9e244dc80afe162237db7",
+      "bytes": 5555
+    },
+    {
       "path": "demo.css",
-      "sha256": "224d43fe987d22113418052ea0929015c4eb8cc30931c580210667e6276b8124",
-      "bytes": 8720
+      "sha256": "94b25c3eb715cc8f085729d196288607f74818c8ad065c1ee4ab1506c77afa09",
+      "bytes": 8833
     },
     {
       "path": "demo.html",
-      "sha256": "d965eadc7ef63ece894f9420c397ff6ab5edf1a041f761a2c86df1e2a1d3f369",
-      "bytes": 7268
+      "sha256": "f5708b6584566a8608c6506a160681915a206ef2831494e6a1f23d2fdef697ec",
+      "bytes": 7679
     },
     {
       "path": "demo.js",
-      "sha256": "ff44fc099d654ba9d9759835f9d6af2fab16e44e595e0f544c6900659fcc3923",
-      "bytes": 28295
+      "sha256": "9999abcd087accb6835f3459c7c22f83724d4c87b4c307f4a52218c97c86565f",
+      "bytes": 30051
     },
     {
       "path": "index.html",
-      "sha256": "0515abc80366aab764bcadf42377d9f2ba5afbc2b76de3aeda86b62fb3c5e96f",
-      "bytes": 13217
+      "sha256": "4accd1871a0a0577c37fd0f0a6f42d72c39d50c899030bfc2519b310de6bbb6a",
+      "bytes": 13211
     },
     {
       "path": "planner-worker.js",
@@ -282,13 +287,13 @@
     },
     {
       "path": "README.md",
-      "sha256": "8bb01e45de142e19fff0d212a42cd1342c9adfd190e466467eb8bbf98a6c1457",
-      "bytes": 1260
+      "sha256": "1e5c8141a9267b9c86cdc7960df7065367c56d643ee04358a74184eb97494422",
+      "bytes": 2320
     },
     {
       "path": "sandbox-core.js",
-      "sha256": "22ef2610b4f14e0abd153185c8adccdaf3fa27c3aa38d34b3e2ea92434e79905",
-      "bytes": 11648
+      "sha256": "34ccf7945edcb91b876ccfdc4f2c705c91a952db572992f3bfc35666f8552eb2",
+      "bytes": 11892
     },
     {
       "path": "serve.py",
@@ -306,5 +311,7 @@
     "stopping",
     "outdoor5",
     "indoor"
-  ]
+  ],
+  "web_execution": "level-terminal-20261113",
+  "selected_demo_seed_count": 70
 }

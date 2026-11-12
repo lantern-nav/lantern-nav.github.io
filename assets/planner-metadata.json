@@ -40,7 +40,7 @@
       "ay",
       "az"
     ],
-    "selection": "argmin predicted score"
+    "selection": "Network predicts costs; web execution ranks feasible planar curves and uses a separate terminal controller"
   },
   "speed_mps": 5,
   "acceleration_mps2": 5,
@@ -83,11 +83,38 @@
     "publication_residual_ratio": 0.15,
     "goal_plane_projection": false
   },
-  "qualitative_validation": {
+  "prior_network_terminal_validation": {
     "scenes": 20,
     "arrived": 15,
     "stopped_without_loop": 6,
     "requested_twenty_scene_target_met": false,
     "frozen_scene_sha256": "c41d3252cd6ba5fd3d0fdc8cbfb38a4aafa5d7483373dfdb299cdcc32784ff9b"
+  },
+  "web_execution": {
+    "version": "level-terminal-20261113",
+    "publication_method": false,
+    "fixed_altitude": true,
+    "altitude_range_m": [0.5, 2.5],
+    "obstacles_checked_as": "2D footprints, including short obstacles",
+    "candidate_geometry": "Project endpoint vertical position, velocity and acceleration to zero",
+    "selection": "Predicted-score order among footprint-clear level candidates; full horizon then 0.8 s and 0.4 s prefixes",
+    "obstacle_body_margin_m": 0.12,
+    "terminal_activation_radius_m": 6.5,
+    "terminal_duration_search_s": [0.8, 3.0],
+    "terminal_duration_step_s": 0.1,
+    "terminal_acceleration_limit_mps2": 5,
+    "initial_limit_exception": "Existing initial speed or acceleration is preserved if it already exceeds a limit",
+    "terminal_path_ratio_max": 1.15,
+    "terminal_retreat_max_m": 0.03,
+    "terminal_overshoot_max_m": 0.03,
+    "terminal_goal_state": "Exact goal position, zero velocity, zero acceleration",
+    "terminal_execution": "Commit the continuous quintic to completion after full geometric feasibility checks",
+    "uses_generated_scene_geometry": true,
+    "arrival_distance_m": 0.1,
+    "arrival_speed_mps": 0.2,
+    "arrival_hold_s": 0.5,
+    "randomize_total_path_ratio_max": 1.35,
+    "randomize_final_2m_path_ratio_max": 1.2,
+    "scope": "Selected qualitative web demonstration; not paper performance evidence"
   }
 }

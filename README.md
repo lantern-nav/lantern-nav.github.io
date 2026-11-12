@@ -2,23 +2,41 @@
 
 A Lightweight Trajectory-Set Planner for Quadrotor Navigation
 
-Anonymous review materials: paper, method figures, measured results,
-a stopping comparison, one indoor flight, one outdoor flight, and the
-interactive browser planner. The complete submission video is available
-as a supplementary download rather than an embedded homepage film.
+Anonymous authors. The homepage contains the method figures, measured paper
+results, selected flight recordings and an interactive browser demonstration.
+The complete submission film remains a supplementary download.
 
-Run locally with `python serve.py --port 8788`, then open the printed address.
-All model and runtime assets are local. The demo performs fresh ONNX inference;
-no recorded trajectory drives the displayed flight.
+Run `python serve.py --port 8788` and open the printed address.
+The browser performs fresh ONNX inference; no recorded path drives the flight.
+All model and runtime assets are local.
 
-Randomize selects success-screened demo seeds for 24 and 60 obstacles.
-Other counts are screened by live inference. Manual scenes remain unscreened.
-These selected demonstrations are separate from the paper's benchmarks.
-The demo uses publication weights with a web terminal profile and ideal
-analytic tracking. Full assumptions are shown in Model and environment.
+## Interactive Demo
 
-The browser demo source is included. The research repository is withheld
-during review. Third-party licenses are retained in assets/vendor/ and
-assets/lucide-LICENSE.
+The network checkpoint and ONNX weights are unchanged. The web execution
+profile is level-terminal-20261113 and differs from the paper's execution:
 
-The video includes permanent English subtitles in Arial, with at most two lines. English.srt is also available in the supplementary ZIP.
+- Fixed altitude from 0.5 to 2.5 m, with equal start and goal heights.
+- Planar projection of the 24 network endpoints.
+- Footprint checks against generated scene geometry; short obstacles cannot
+  be overflown. Predicted cost ranks the remaining feasible level candidates.
+- A separate scene-aware controller searches continuous quintic stops inside
+  6.5 m. A feasible stop is followed to its exact goal endpoint with zero
+  velocity and acceleration. Start position, velocity and acceleration match.
+- Arrival still requires 3D error <=0.1 m and speed <=0.2m/s for 0.5 s.
+
+Randomize uses 70 selected seeds covering 24 and 60 obstacles: 20 mixed seeds
+and 5 each for pillars, boxes and walls at each count. All selected seeds
+passed fixed altitude, precise stopping, final 2 m path ratio <=1.2 and total
+path ratio <=1.35. They were selected from 378 retained attempts, including
+failures. These are selected qualitative demonstrations, not unbiased success
+rates or evidence for paper performance. Other counts use the same live
+screening criteria. Manually edited scenes remain unscreened and can fail.
+
+The catalog is bound to model, generator, execution and controller hashes.
+Run exports include the execution settings and selection provenance.
+Model and environment contains the complete assumptions. Tracking is ideal
+analytic reference following, without rigid-body dynamics or sensor noise.
+
+The demo source is included. The research repository is withheld during
+anonymous review. Licenses remain in assets/vendor/ and assets/lucide-LICENSE.
+The supplementary film includes permanent English subtitles and music credit.

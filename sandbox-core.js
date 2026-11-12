@@ -193,8 +193,8 @@ export function bodyState(state, goal) {
   ]);
 }
 
-export function curveFromEndpoint(state, endpoint) {
-  const T = SETTINGS.horizon;
+export function curveFromEndpoint(state, endpoint, horizon = SETTINGS.horizon) {
+  const T = horizon;
   const endP = rotate(endpoint.slice(0, 3), state.yaw).map((v, i) => v + state.p[i]);
   const endV = rotate(endpoint.slice(3, 6), state.yaw);
   const endA = rotate(endpoint.slice(6, 9), state.yaw);
@@ -214,8 +214,8 @@ function bezier(points, u) {
   return work[0];
 }
 
-export function evaluateCurve(points, t) {
-  const T = SETTINGS.horizon, u = t / T;
+export function evaluateCurve(points, t, horizon = SETTINGS.horizon) {
+  const T = horizon, u = t / T;
   const first = points.slice(0, -1).map((p, i) => p.map((v, k) => (points[i + 1][k] - v) * 5 / T));
   const second = first.slice(0, -1).map((p, i) => p.map((v, k) => (first[i + 1][k] - v) * 4 / T));
   return { p: bezier(points, u), v: bezier(first, u), a: bezier(second, u) };
@@ -248,6 +248,8 @@ export function validateScene(scene) {
         !bounded(point[1], 1 - SETTINGS.bounds.y, SETTINGS.bounds.y - 1) || !bounded(point[2], .3, 6))
       throw new Error("Start and goal must be inside the scene bounds.");
   }
+  if (Math.abs(scene.start[2] - scene.goal[2]) > 1e-8 || scene.start[2] < .5 || scene.start[2] > 2.5)
+    throw new Error("The level-flight demo needs equal start and goal heights between 0.5 and 2.5 m.");
   const ids = new Set();
   for (const o of scene.obstacles) {
     if (!Number.isInteger(o.id) || ids.has(o.id) || !["pillar", "box", "wall"].includes(o.type) ||
