@@ -1,0 +1,93 @@
+{
+  "name": "LANTERN",
+  "checkpoint_sha256": "9707db065961831e109527476ceb8eb78164b16fd3e5cf58875189e066dae13b",
+  "onnx_sha256": "e2c551b3a247993ae3feb89a460bebd484a7661fba0e2b57ab6779462e19ac18",
+  "input": {
+    "depth_shape": [
+      1,
+      1,
+      96,
+      160
+    ],
+    "depth_normalized": true,
+    "depth_range_m": 20,
+    "quantization": "floor(depth_m/20*255)/255",
+    "body_state": [
+      "vx",
+      "vy",
+      "vz",
+      "ax",
+      "ay",
+      "az",
+      "gx",
+      "gy",
+      "gz"
+    ]
+  },
+  "output": {
+    "endstate_shape": [
+      24,
+      9
+    ],
+    "endstate_order": [
+      "px",
+      "py",
+      "pz",
+      "vx",
+      "vy",
+      "vz",
+      "ax",
+      "ay",
+      "az"
+    ],
+    "selection": "argmin predicted score"
+  },
+  "speed_mps": 5,
+  "acceleration_mps2": 5,
+  "horizon_s": 2.0,
+  "goal_length_m": 10.0,
+  "terminal_queries": 6,
+  "world_frame": "NWU",
+  "body_frame": "FLU",
+  "camera": {
+    "horizontal_fov_deg": 90,
+    "vertical_fov_deg": 60,
+    "depth_type": "optical-axis depth",
+    "near_m": 0.04,
+    "far_m": 20
+  },
+  "environment": {
+    "replan_hz": 10,
+    "contact_sample_s": 0.01,
+    "vehicle_radius_m": 0.22,
+    "timeout_s": 40,
+    "arrival_distance_m": 0.1,
+    "arrival_speed_mps": 0.2,
+    "arrival_hold_s": 0.5
+  },
+  "runtime": {
+    "engine": "onnxruntime-web",
+    "version": "1.23.2",
+    "execution_provider": "wasm",
+    "threads": 1
+  },
+  "tracking": "Ideal analytic quintic reference following; no rigid-body dynamics",
+  "browser_inference": true,
+  "new_benchmark": false,
+  "profile": "web_terminal_5_2_zero",
+  "publication_profile": false,
+  "terminal_candidate_parameters": {
+    "activation_radius_m": 5,
+    "full_radius_m": 2,
+    "residual_ratio": 0,
+    "publication_residual_ratio": 0.15,
+    "goal_plane_projection": false
+  },
+  "qualitative_validation": {
+    "scenes": 20,
+    "arrived": 15,
+    "stopped_without_loop": 6,
+    "requested_twenty_scene_target_met": false,
+    "frozen_scene_sha256": "c41d3252cd6ba5fd3d0fdc8cbfb38a4aafa5d7483373dfdb299cdcc32784ff9b"
+  }
+}

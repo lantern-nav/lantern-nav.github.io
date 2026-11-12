@@ -1,0 +1,304 @@
+{
+  "anonymous_review": true,
+  "authors": "Anonymous authors",
+  "real_time_inference": true,
+  "video_version": "LANTERN_RAL_subtitled_v7_20261112",
+  "english_subtitles_burned_in": true,
+  "assets": [
+    {
+      "path": ".nojekyll",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    {
+      "path": "assets/arrow-up-right.svg",
+      "sha256": "88f811ca97bdc5c625ebf653a944db3e76df744f83759a5c46c9efbba88864c3",
+      "bytes": 269
+    },
+    {
+      "path": "assets/code-xml.svg",
+      "sha256": "992a7e5d0100fccda8c96d7f3a2b46b53e12a2556fdb13cb0950eb548d93bb4f",
+      "bytes": 304
+    },
+    {
+      "path": "assets/demo-seeds.json",
+      "sha256": "4dcae577cf3efe3801de4f5ec778b43722606f5eefa9d5cdee7ec2e5edcf3537",
+      "bytes": 2089
+    },
+    {
+      "path": "assets/download.svg",
+      "sha256": "ce5b6cdf36a62dd75687e96840ef39e71b717eeb1a0c4895f2d4f565e30f6ee2",
+      "bytes": 328
+    },
+    {
+      "path": "assets/English.srt",
+      "sha256": "efc4924e41171ed889581956542c4ff306432b2dae05653a836bb2acc50e3bf7",
+      "bytes": 2686
+    },
+    {
+      "path": "assets/expand.svg",
+      "sha256": "c3564f0da621a56dbe82a12925ce1ebe4325b787b67b59f7198c8f3af0a00ef2",
+      "bytes": 425
+    },
+    {
+      "path": "assets/favicon.png",
+      "sha256": "f792399715d0c1a9b262aa2e6a995546035dcbb4bdf96162ef563eee7874c5bf",
+      "bytes": 176
+    },
+    {
+      "path": "assets/file-text.svg",
+      "sha256": "fd943b79e7a4380ef383c5d742e5c5174a4976f5af0878c4564d457a3cf72130",
+      "bytes": 456
+    },
+    {
+      "path": "assets/film-poster.jpg",
+      "sha256": "c5dd692c66a4038e38f07fb7acb6cab91ecfdec3e7da58a829f224741fbd41d7",
+      "bytes": 61849
+    },
+    {
+      "path": "assets/fpv.mp4",
+      "sha256": "3436d67ccf6345f707bef0c4e1cd1f2609dd9a7e0a9e16ac0b0aa222a2f47b63",
+      "bytes": 3657013
+    },
+    {
+      "path": "assets/indoor-poster.jpg",
+      "sha256": "9dd81683b67b5e9bd4fccdb9533719fa1480c3c2d980a0c6fea380660a6fbab5",
+      "bytes": 167060
+    },
+    {
+      "path": "assets/indoor.mp4",
+      "sha256": "37e6948f7bb7d2d73d5d017b39fbf2f8417cb66a22a4a583b9888ef74f22dfb8",
+      "bytes": 4636583
+    },
+    {
+      "path": "assets/lantern-planner.onnx",
+      "sha256": "e2c551b3a247993ae3feb89a460bebd484a7661fba0e2b57ab6779462e19ac18",
+      "bytes": 1167302
+    },
+    {
+      "path": "assets/LANTERN_demo_source.zip",
+      "sha256": "7f350cb97d5e367ccc6d50524e971f415b4c74fb5ae2483acd634acfeb0801aa",
+      "bytes": 4539361
+    },
+    {
+      "path": "assets/LANTERN_multimedia.zip",
+      "sha256": "5006ab81dfaf0545877a9f8e24df51e3fa6348efa857de03ca17f4696a3557ff",
+      "bytes": 48953413
+    },
+    {
+      "path": "assets/LANTERN_paper.pdf",
+      "sha256": "223ab5df534a631c87b099dc9c805047e01e587f1e6108cb1b4c387109854b13",
+      "bytes": 4393040
+    },
+    {
+      "path": "assets/LANTERN_video.mp4",
+      "sha256": "cb7d261c1d8df773a71bb2eeffdba7c7d0ec3fa3b1c8c2391e16ce3404d1297d",
+      "bytes": 48947089
+    },
+    {
+      "path": "assets/live-demo-preview.jpg",
+      "sha256": "b3e5e95a75b1f51c89f1063624567f192aa7b454b99864fc0c75734dcb00caab",
+      "bytes": 33166
+    },
+    {
+      "path": "assets/lucide-LICENSE",
+      "sha256": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57",
+      "bytes": 3208
+    },
+    {
+      "path": "assets/method-anchors.png",
+      "sha256": "2cd77358ad129708a5a636698dab7980a7868433a3213949bc351368dca67d9f",
+      "bytes": 31732
+    },
+    {
+      "path": "assets/method-attention.png",
+      "sha256": "f04f73e82a47f4fbe948895cebee16e00894b15d08627a3683e1ea72443b70d6",
+      "bytes": 292742
+    },
+    {
+      "path": "assets/method-goal.png",
+      "sha256": "9999eda088ea019294421f2b915126769180fa570ec5d8f217979d94176c9ec4",
+      "bytes": 35817
+    },
+    {
+      "path": "assets/method-learning.png",
+      "sha256": "dd0693522f26b60dce5d3015209004756183080f4a274c9984d1be8a403c7afc",
+      "bytes": 28024
+    },
+    {
+      "path": "assets/method-overview.png",
+      "sha256": "4a0bebae2b83e32193379e4adf901be944b1aefe2af7c1eea563ac288a8d2160",
+      "bytes": 90508
+    },
+    {
+      "path": "assets/narration_en.vtt",
+      "sha256": "1128e4931e2da01b95df61d9389535dddd04fa8c95e59f35bf2b66311a66d8c4",
+      "bytes": 2696
+    },
+    {
+      "path": "assets/outdoor-poster.jpg",
+      "sha256": "c5dd692c66a4038e38f07fb7acb6cab91ecfdec3e7da58a829f224741fbd41d7",
+      "bytes": 61849
+    },
+    {
+      "path": "assets/outdoor1-poster.jpg",
+      "sha256": "645ef67b2a14269a60d55322aab9a93b147e1dc32e14d5ae3509fef1b31b69c5",
+      "bytes": 211416
+    },
+    {
+      "path": "assets/outdoor1.mp4",
+      "sha256": "57210a9cf1f78cfb3a993cf1c0c8fbed55de7ab9e55db7401e97501105219d48",
+      "bytes": 10504864
+    },
+    {
+      "path": "assets/outdoor3-poster.jpg",
+      "sha256": "9a6fee907eb539ce0da787f19372dcf4b1a5f541c38479fc59567149a699a55c",
+      "bytes": 123748
+    },
+    {
+      "path": "assets/outdoor3.mp4",
+      "sha256": "ae4f63d948f61bfbf828048423ebebd6c71df411f4b9f77e0092e8640e89def3",
+      "bytes": 7609241
+    },
+    {
+      "path": "assets/outdoor5-poster.jpg",
+      "sha256": "75e49a7734686d855b3211d93458b38e8ef9c96e76f04be2aa32010c0cd8d2ef",
+      "bytes": 188907
+    },
+    {
+      "path": "assets/outdoor5.mp4",
+      "sha256": "d72970b6ea9355f6cfa6647a1e1d8bd91ee36ec929be10eed9073378b240516b",
+      "bytes": 13581954
+    },
+    {
+      "path": "assets/pause.svg",
+      "sha256": "cd605cf36a1dcd85683313fba508e6d22f31dd030f29dd6d49108ae79729407f",
+      "bytes": 322
+    },
+    {
+      "path": "assets/planner-metadata.json",
+      "sha256": "58fb06c14c525094cfdb59bd3db5b8a7df2f43a32dc0ca7150fefdbe1d4cdb3b",
+      "bytes": 2168
+    },
+    {
+      "path": "assets/play.svg",
+      "sha256": "2ea9268fd62ee5d054589eb894bf8ec004ffb75424ca6eb97a5788aaf82f309b",
+      "bytes": 314
+    },
+    {
+      "path": "assets/rotate-ccw.svg",
+      "sha256": "ceff9f28592f1f2c125cbdc94cede286da4b49b9735e78eb057d2a6539b09b0c",
+      "bytes": 292
+    },
+    {
+      "path": "assets/step-forward.svg",
+      "sha256": "fe32b7d7f1d8814318ba29c0a0c1cb6aef1a7371b0b364ee370e12fe8e2a204e",
+      "bytes": 288
+    },
+    {
+      "path": "assets/stopping-poster.jpg",
+      "sha256": "54d349ef0bac9fd193d412e4366fd6acfbda05eea7c21ef15627aa72a2013559",
+      "bytes": 161642
+    },
+    {
+      "path": "assets/stopping.mp4",
+      "sha256": "a95b04278b7bf0fe617810e3c6a9b01f90ee07d47785eea2f4b61e76e2f250e0",
+      "bytes": 4404664
+    },
+    {
+      "path": "assets/vendor/onnxruntime-LICENSE",
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c",
+      "bytes": 1073
+    },
+    {
+      "path": "assets/vendor/OrbitControls.js",
+      "sha256": "e1cdf5833c6e0aa095bd1a4f67dffe68f35677a992e1fb26fe374b5b759ce267",
+      "bytes": 38697
+    },
+    {
+      "path": "assets/vendor/ort-wasm-simd-threaded.mjs",
+      "sha256": "90a557d15c02bac4504d95b67f431d8594635ed2a0a62a7f2cd83d090ff91d3e",
+      "bytes": 20321
+    },
+    {
+      "path": "assets/vendor/ort-wasm-simd-threaded.wasm",
+      "sha256": "45eaee27761ad883742a8d4b8fce1538d60ce43b51adf1726fafccc59b8c1a15",
+      "bytes": 11905541
+    },
+    {
+      "path": "assets/vendor/ort.wasm.min.js",
+      "sha256": "c6bc9f8e1d0ecc3983a57910e6a30b2230a512bcd2e0207cd64306459c3de7b4",
+      "bytes": 49926
+    },
+    {
+      "path": "assets/vendor/three-LICENSE",
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+      "bytes": 1081
+    },
+    {
+      "path": "assets/vendor/three.core.js",
+      "sha256": "03fb6e9fa08628385a9096948593251ae473239c7039496d7c280cba73d84631",
+      "bytes": 1405971
+    },
+    {
+      "path": "assets/vendor/three.module.js",
+      "sha256": "be4bc1b167ec03700b92288c3706627390826da837e9a17805613f7442b8bf55",
+      "bytes": 626212
+    },
+    {
+      "path": "assets/x.svg",
+      "sha256": "423a9f851d596a511daf57d7c9c86e106763aa7ac73e86eef0191dd76dc12ba6",
+      "bytes": 269
+    },
+    {
+      "path": "demo.css",
+      "sha256": "224d43fe987d22113418052ea0929015c4eb8cc30931c580210667e6276b8124",
+      "bytes": 8720
+    },
+    {
+      "path": "demo.html",
+      "sha256": "d965eadc7ef63ece894f9420c397ff6ab5edf1a041f761a2c86df1e2a1d3f369",
+      "bytes": 7268
+    },
+    {
+      "path": "demo.js",
+      "sha256": "ff44fc099d654ba9d9759835f9d6af2fab16e44e595e0f544c6900659fcc3923",
+      "bytes": 28295
+    },
+    {
+      "path": "index.html",
+      "sha256": "7a5911afce315f740c8028005e308e378b0f734dba634cce5bbde958efee40e4",
+      "bytes": 15752
+    },
+    {
+      "path": "planner-worker.js",
+      "sha256": "860657927a7113ee25d98ee8fdf1c0066da09542839513ef1a125ab92e50841b",
+      "bytes": 1380
+    },
+    {
+      "path": "project.js",
+      "sha256": "1f0c7aaef8394cd8a91381269a12b3c24982b66ef0a43656138e73ba40d6a29e",
+      "bytes": 7833
+    },
+    {
+      "path": "README.md",
+      "sha256": "d7b40268530eab3f5317181ad8a60bc9a760fae5d77032892d2a4118bbff1284",
+      "bytes": 1108
+    },
+    {
+      "path": "sandbox-core.js",
+      "sha256": "22ef2610b4f14e0abd153185c8adccdaf3fa27c3aa38d34b3e2ea92434e79905",
+      "bytes": 11648
+    },
+    {
+      "path": "serve.py",
+      "sha256": "64475e70824585c87c749c23f6d7b56af2352c6d86346c073ad5ecfd4ffe0ee2",
+      "bytes": 3047
+    },
+    {
+      "path": "style.css",
+      "sha256": "b85000d9e6b60a80d7491306e2ce4c4c677fcefbdc05a0b14de585f4ab0cd28a",
+      "bytes": 17186
+    }
+  ]
+}

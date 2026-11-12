@@ -1,0 +1,89 @@
+WEBVTT
+
+1
+00:00:00.120 --> 00:00:03.085
+LANTERN. Lightweight navigation.
+
+2
+00:00:04.620 --> 00:00:08.786
+A compact encoder and shared decoder produce candidate curves and scores.
+
+3
+00:00:09.620 --> 00:00:13.476
+One depth frame and motion state yield twenty-four candidate trajectories.
+
+4
+00:00:14.120 --> 00:00:20.367
+Directional geometry anchors queries. Cross-attention reads image features with an angular prior.
+
+5
+00:00:21.120 --> 00:00:25.264
+The learned readout adapts to geometry; the fixed-grid panel is schematic.
+
+6
+00:00:25.820 --> 00:00:30.562
+Quintic Bezier curves match the initial position, velocity, and acceleration.
+
+7
+00:00:31.120 --> 00:00:36.153
+Directional anchors preserve coverage; bounded residuals adapt the curves to obstacles.
+
+8
+00:00:36.720 --> 00:00:45.114
+Near the goal, six queries become goal-relative. Their control points
+contract toward the goal, supporting deceleration and stopping.
+
+9
+00:00:45.920 --> 00:00:51.267
+One differentiable cost combines smoothness, obstacle avoidance, progress, and settling.
+
+10
+00:00:51.720 --> 00:00:57.354
+Low-cost candidates receive more training weight. Their costs also supervise scores.
+
+11
+00:00:57.820 --> 00:01:02.724
+Rebuilding from the handoff state preserves reference continuity when tracking remains close.
+
+12
+00:01:05.220 --> 00:01:09.472
+LANTERN succeeds in one hundred ninety-six of two hundred fixed-seed trials.
+
+13
+00:01:11.220 --> 00:01:14.296
+Network forward: one point one nine milliseconds.
+
+14
+00:01:15.220 --> 00:01:22.131
+Separate five-meter-per-second examples show dense and sparse forests. All flight recordings play at normal speed.
+
+15
+00:01:25.220 --> 00:01:30.763
+The same planners are compared in box clutter and wall corridors, with their recorded speed shown below.
+
+16
+00:01:35.220 --> 00:01:39.648
+Selected eight-meter-per-second runs show dense pillars, boxes, and walls.
+
+17
+00:01:55.220 --> 00:02:08.218
+This independent example compares three planners. LANTERN settles near the goal. With no
+goal queries, the vehicle collides; YOPO keeps moving. Ended panels hold their recorded states.
+
+18
+00:02:10.220 --> 00:02:14.968
+Fifty trials: fifty strict stops for LANTERN, zero for both comparisons.
+
+19
+00:02:15.320 --> 00:02:22.749
+Finally, indoor and outdoor flights demonstrate the deployed
+planner. The speed gauges follow recorded motion estimates.
+
+20
+00:02:52.187 --> 00:03:01.807
+Candidate trajectories, the executed path, and the onboard view remain synchronized.
+The dial displays the original velocity estimate without temporal smoothing.
+
+21
+00:03:14.287 --> 00:03:15.100
+LANTERN.

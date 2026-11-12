@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="LANTERN: A Lightweight Trajectory-Set Planner for Quadrotor Navigation. Research overview, method, simulation and real-flight experiments, paper, code, and an interactive planner.">
+  <meta property="og:title" content="LANTERN">
+  <meta property="og:description" content="A Lightweight Trajectory-Set Planner for Quadrotor Navigation">
+  <meta property="og:image" content="assets/outdoor-poster.jpg">
+  <title>LANTERN | A Lightweight Trajectory-Set Planner for Quadrotor Navigation</title>
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="project.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="wordmark" href="#" aria-label="LANTERN home">LANTERN<span aria-hidden="true">.</span></a>
+    <nav aria-label="Main navigation">
+      <a href="#overview">Overview</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#flights">Flights</a>
+      <a href="#demo">Demo</a>
+      <a class="paper-link" href="assets/LANTERN_paper.pdf" target="_blank" rel="noopener">Paper <img src="assets/arrow-up-right.svg" alt=""></a>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="paper-heading wrap" aria-labelledby="project-title">
+      <h1 id="project-title">LANTERN</h1>
+      <p class="paper-title">A Lightweight Trajectory-Set Planner<br>for Quadrotor Navigation</p>
+      <p class="small-note">Anonymous authors</p>
+      <div class="paper-actions">
+        <a class="primary" href="assets/LANTERN_paper.pdf" target="_blank" rel="noopener"><img src="assets/file-text.svg" alt="">Paper</a>
+        <a href="#film"><img src="assets/play.svg" alt="">Video <span>3:17</span></a>
+        <a href="assets/LANTERN_demo_source.zip" download><img src="assets/code-xml.svg" alt="">Demo code</a>
+        <a href="#demo"><img src="assets/expand.svg" alt="">Demo</a>
+      </div>
+    </section>
+    <div class="teaser wrap">
+      <video id="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/outdoor-poster.jpg" aria-label="First-person view from a recorded outdoor quadrotor flight">
+        <source src="assets/fpv.mp4" type="video/mp4">
+      </video>
+      <div class="teaser-caption"><span>Onboard view <span class="caption-divider">/</span> 1×</span><button id="hero-toggle" class="icon-button" type="button" aria-label="Pause background video" title="Pause background video"><img src="assets/pause.svg" alt=""></button></div>
+    </div>
+
+    <section class="abstract narrow" id="overview" aria-labelledby="abstract-heading">
+      <h2 id="abstract-heading">Overview</h2>
+      <p>Quadrotor navigation through clutter requires alternative ways around obstacles, frequent replanning, and precise stopping within an onboard compute budget. LANTERN separates a candidate's directional role from its visual readout: directional anchors define the alternatives, while shared cross-attention lets each candidate read geometry across the depth image. This allows a narrow CNN to serve the entire trajectory set.</p>
+      <p>From a single depth frame and the motion state, LANTERN generates and scores 24 executable quintic trajectories. Six queries adapt to the goal distance to support precise stopping. A common differentiable trajectory cost trains generation and scoring; online, the lowest-scoring curve is selected and rebuilt at the reference handoff.</p>
+      <div class="key-facts" aria-label="Paper highlights">
+        <span><b>24</b> trajectory queries</span>
+        <span><b>0.260M</b> active parameters</span>
+        <span><b>Single-frame</b> depth input</span>
+      </div>
+    </section>
+
+    <section class="section band" id="film" aria-labelledby="film-heading">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">PROJECT VIDEO</p><h2 id="film-heading">Method and experiments</h2></div>
+        <video id="main-film" class="wide-video" controls playsinline preload="metadata" poster="assets/film-poster.jpg">
+          <source src="assets/LANTERN_video.mp4?v=en-subtitles-20261112" type="video/mp4">
+          Your browser does not support MP4 playback. <a href="assets/LANTERN_video.mp4">Download the film.</a>
+        </video>
+        <div class="chapters" aria-label="Film chapters">
+          <button type="button" data-seek="4.5"><span>00:04</span>Method</button>
+          <button type="button" data-seek="75.1"><span>01:15</span>5m/s</button>
+          <button type="button" data-seek="95.1"><span>01:35</span>8m/s</button>
+          <button type="button" data-seek="115.1"><span>01:55</span>Stopping</button>
+          <button type="button" data-seek="135.2"><span>02:15</span>Real flights</button>
+          <a class="download-film" href="assets/LANTERN_video.mp4" download><img src="assets/download.svg" alt="">MP4</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="method" aria-labelledby="method-heading">
+      <div class="method-content">
+        <div class="section-heading"><p class="eyebrow">METHOD</p><h2 id="method-heading">From depth to an executable curve</h2><p>Directional anchors define candidate roles. Shared attention determines where each candidate reads.</p></div>
+        <div class="tabs" role="tablist" aria-label="Method components">
+          <button role="tab" id="tab-overview" aria-controls="method-panel" aria-selected="true" tabindex="0" data-method="overview">Framework</button>
+          <button role="tab" id="tab-readout" aria-controls="method-panel" aria-selected="false" tabindex="-1" data-method="attention">Shared readout</button>
+          <button role="tab" id="tab-avoidance" aria-controls="method-panel" aria-selected="false" tabindex="-1" data-method="anchors">Anchored curves</button>
+          <button role="tab" id="tab-goal" aria-controls="method-panel" aria-selected="false" tabindex="-1" data-method="goal">Goal queries</button>
+          <button role="tab" id="tab-training" aria-controls="method-panel" aria-selected="false" tabindex="-1" data-method="learning">Set supervision</button>
+        </div>
+        <div id="method-panel" role="tabpanel" aria-labelledby="tab-overview">
+          <button class="figure-button" type="button" data-enlarge aria-label="Enlarge method figure">
+            <img id="method-image" src="assets/method-overview.png" alt="LANTERN framework: depth encoder, shared query decoder, residual head, curve reconstruction, common-cost training, and reference handoff." width="1920" height="1080" loading="lazy">
+            <span class="zoom-icon"><img src="assets/expand.svg" alt=""></span>
+          </button>
+          <p class="figure-caption" id="method-description">24 queries generate and score quintic curves; the selected curve is rebuilt from the handoff state.</p>
+        </div>
+        <div class="method-notes">
+          <div><h3>One shared encoding</h3><p>A narrow CNN extracts depth features once. Queries attend to image tokens across the full field of view.</p></div>
+          <div><h3>Geometry-grounded candidates</h3><p>A 4 × 6 directional layout provides coverage. Bounded residuals adjust each candidate to the observation.</p></div>
+          <div><h3>Goal-relative stopping</h3><p>Six queries adapt near the goal. The selected curve is reconstructed at the reference handoff.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="results" aria-labelledby="results-heading">
+      <div class="section-heading"><p class="eyebrow">EVALUATION</p><h2 id="results-heading">Navigation and onboard compute</h2></div>
+      <div class="results-grid">
+        <div class="result-block">
+          <h3>Navigation success</h3>
+          <p class="small-note">4 scenes · 50 paired seeds per scene · 4m/s</p>
+          <div class="table-scroll">
+            <table>
+              <caption class="sr-only">Successful navigation episodes, each scene has 50 trials</caption>
+              <thead><tr><th scope="col">Planner</th><th scope="col">Sparse</th><th scope="col">Dense</th><th scope="col">Boxes</th><th scope="col">Walls</th><th scope="col">Total</th></tr></thead>
+              <tbody>
+                <tr class="ours"><th scope="row">LANTERN</th><td>50</td><td>50</td><td>47</td><td>49</td><td><b>196</b><span>/200</span></td></tr>
+                <tr><th scope="row">YOPO</th><td>46</td><td>28</td><td>25</td><td>25</td><td>124<span>/200</span></td></tr>
+                <tr><th scope="row">EGO-Planner</th><td>48</td><td>36</td><td>32</td><td>47</td><td>163<span>/200</span></td></tr>
+                <tr><th scope="row">Fast-Planner</th><td>40</td><td>36</td><td>34</td><td>38</td><td>148<span>/200</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="figure-caption">64 m route · 1 m goal region · 40 s timeout · 3.2m/s²</p>
+        </div>
+        <div class="result-block latency-block">
+          <div class="latency-heading"><h3>Orin NX forward pass</h3><span><b>3.93×</b></span></div>
+          <p class="small-note">Identical CUDA Graph settings · lower is better</p>
+          <div class="latency-row ours"><div><b>LANTERN</b><strong>1.19 <span>ms</span></strong></div><div class="bar-track"><span class="bar" style="--bar-width:25.49%"></span></div></div>
+          <div class="latency-row"><div><b>YOPO</b><strong>4.67 <span>ms</span></strong></div><div class="bar-track"><span class="bar" style="--bar-width:100%"></span></div></div>
+          <p class="figure-caption">Network timing excludes camera acquisition, ROS transport, and control.</p>
+        </div>
+      </div>
+      <details class="protocol-details"><summary>Evaluation details</summary><p>The 4m/s navigation counts, the 5m/s strict-stopping counts, and the 8m/s video examples use distinct protocols. The interactive demo uses publication weights with separate web terminal tuning at 5m/s and ideal tracking. Forward-pass timing comes from the registered compatibility instance; 0.260M denotes the active model after pruning unused branches. No new Orin timing of the pruned instance is reported here.</p></details>
+      <div class="stopping">
+        <div class="stopping-copy">
+          <h3>Precise goal stopping</h3>
+          <p class="small-note">50 trials per variant · 5m/s · 4 m tree spacing</p>
+          <dl class="stop-totals"><div class="ours"><dt>LANTERN</dt><dd>50<span>/50</span></dd></div><div><dt>no goal queries</dt><dd>0<span>/50</span></dd></div><div><dt>YOPO</dt><dd>0<span>/50</span></dd></div></dl>
+          <p class="figure-caption">Error ≤ 0.1 m and speed ≤ 0.2m/s, held for 0.5 s.</p>
+        </div>
+        <video class="wide-video" controls playsinline preload="none" poster="assets/stopping-poster.jpg" aria-label="Independent stopping comparison: LANTERN, no goal queries, and YOPO"><source src="assets/stopping.mp4" type="video/mp4"></video>
+      </div>
+      <p class="figure-caption">The stopping video is a separate qualitative example (seed 61002); the counts come from the 50-trial evaluation.</p>
+    </section>
+
+    <section class="section band" id="flights" aria-labelledby="flights-heading">
+      <div class="wrap">
+        <div class="section-heading"><p class="eyebrow">REAL ROBOT</p><h2 id="flights-heading">Indoor and outdoor flights</h2><p>Selected onboard deployment recordings · 1×</p></div>
+        <div class="tabs flight-tabs" role="tablist" aria-label="Recorded flight selection">
+          <button role="tab" id="flight-outdoor5" aria-controls="flight-panel" aria-selected="true" tabindex="0" data-flight="outdoor5">Outdoor 5</button>
+          <button role="tab" id="flight-outdoor1" aria-controls="flight-panel" aria-selected="false" tabindex="-1" data-flight="outdoor1">Outdoor 1</button>
+          <button role="tab" id="flight-outdoor3" aria-controls="flight-panel" aria-selected="false" tabindex="-1" data-flight="outdoor3">Outdoor 3</button>
+          <button role="tab" id="flight-indoor" aria-controls="flight-panel" aria-selected="false" tabindex="-1" data-flight="indoor">Indoor</button>
+        </div>
+        <div id="flight-panel" role="tabpanel" aria-labelledby="flight-outdoor5">
+          <video id="flight-video" class="wide-video" controls playsinline preload="metadata" poster="assets/outdoor5-poster.jpg" aria-label="Outdoor experiment 5 at 5m/s"><source src="assets/outdoor5.mp4" type="video/mp4"></video>
+          <p class="figure-caption" id="flight-description">Outdoor 5 · 5m/s · VINS estimate</p>
+        </div>
+        <p class="figure-caption">Dials show recorded velocity estimates. Indoor: motion capture. Outdoor: VINS.</p>
+      </div>
+    </section>
+
+    <section class="section wrap" id="demo" aria-labelledby="demo-heading">
+      <div class="section-heading"><p class="eyebrow">INTERACTIVE DEMO</p><h2 id="demo-heading">Run LANTERN in your own scene</h2><p>Qualitative navigation on generated obstacle scenes.</p></div>
+      <div class="demo-preview" id="demo-preview">
+        <img src="assets/live-demo-preview.jpg" alt="A generated obstacle scene with live LANTERN candidate trajectories" width="1202" height="510" loading="lazy">
+        <button class="launch-demo" id="launch-demo" type="button"><img src="assets/play.svg" alt="">Run live demo</button>
+      </div>
+      <iframe class="live-sandbox" id="live-sandbox" data-src="demo.html?embed=1&amp;v=compact-selected-20261112" title="Live LANTERN planner with user-generated obstacles" hidden></iframe>
+      <div class="demo-caption"><p>Terminal tuned · 5m/s · Ideal trajectory tracking</p><div class="demo-links"><button id="close-demo" type="button" hidden>Close demo <img src="assets/x.svg" alt=""></button><a href="demo.html" target="_blank" rel="noopener">Open full demo <img src="assets/arrow-up-right.svg" alt=""></a></div></div>
+      <noscript><p>The interactive planner requires JavaScript.</p></noscript>
+    </section>
+
+    <section class="resources wrap" id="resources" aria-labelledby="resources-heading">
+      <h2 id="resources-heading">Paper and resources</h2>
+      <p>LANTERN: A Lightweight Trajectory-Set Planner for Quadrotor Navigation</p>
+      <div class="resource-links">
+        <a href="assets/LANTERN_paper.pdf" target="_blank" rel="noopener"><img src="assets/file-text.svg" alt="">Paper PDF <img src="assets/arrow-up-right.svg" alt=""></a>
+        <a href="assets/LANTERN_multimedia.zip" download><img src="assets/download.svg" alt="">Supplementary video</a>
+        <a href="assets/English.srt" download><img src="assets/download.svg" alt="">English subtitles</a>
+        <a href="assets/LANTERN_demo_source.zip" download><img src="assets/code-xml.svg" alt="">Browser demo source <img src="assets/arrow-up-right.svg" alt=""></a>
+      </div>
+      <p class="figure-caption">The research repository is withheld during anonymous review.</p>
+    </section>
+  </main>
+  <footer class="wrap"><a href="#" class="wordmark">LANTERN<span>.</span></a><p>Single-frame geometry-grounded trajectory-set planning</p></footer>
+  <dialog id="figure-dialog" aria-label="Method figure"><button class="icon-button dialog-close" type="button" aria-label="Close enlarged figure" title="Close enlarged figure"><img src="assets/x.svg" alt=""></button><img id="enlarged-image" alt=""></dialog>
+</body>
+</html>

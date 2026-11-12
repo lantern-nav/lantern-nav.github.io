@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b0b">
+  <title>LANTERN | Live Planner</title>
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="demo.css">
+  <script type="importmap">{"imports":{"three":"./assets/vendor/three.module.js"}}</script>
+  <script src="demo.js?v=compact-selected-20261112" type="module"></script>
+</head>
+<body>
+  <header class="demo-header">
+    <a href="index.html" target="_top">LANTERN<span>.</span></a>
+    <span>Live planner</span>
+    <a class="project-link" href="index.html#demo" target="_top">Project page <img src="assets/arrow-up-right.svg" alt=""></a>
+  </header>
+  <main class="sandbox">
+    <div class="generator">
+      <label>Scene<select id="scene-kind"><option value="pillar">Pillars</option><option value="box">Boxes</option><option value="wall">Walls</option><option value="mixed" selected>Mixed</option></select></label>
+      <label class="seed-field">Seed<input id="scene-seed" type="number" min="0" max="4294967295" step="1" value="42"></label>
+      <label class="count-field">Obstacles <output id="count-label" for="obstacle-count">24</output><input id="obstacle-count" type="range" min="0" max="60" step="1" value="24"></label>
+      <button type="button" id="generate">Generate</button>
+      <button type="button" id="randomize" title="Choose a seed screened by actual arrival and stopping" disabled>Randomize</button>
+      <button type="button" id="clear">Clear</button>
+    </div>
+    <div class="workspace">
+      <div class="scene-column">
+        <div class="editor-bar">
+          <label class="mode-field"><span class="sr-only">Edit mode</span><select id="edit-mode" aria-label="Edit mode"><option value="orbit">Orbit view</option><option value="add">Add obstacle</option><option value="move">Move object</option><option value="erase">Remove obstacle</option><option value="start">Set start</option><option value="goal">Set goal</option></select></label>
+          <label id="shape-field"><span class="sr-only">Obstacle shape</span><select id="obstacle-shape" aria-label="Obstacle shape"><option value="pillar">Pillar</option><option value="box">Box</option><option value="wall">Wall</option></select></label>
+          <button type="button" class="icon-button" id="top-view" aria-label="Top view" title="Top view"><img src="assets/expand.svg" alt=""></button>
+          <label class="candidate-toggle"><input type="checkbox" id="show-candidates" checked>24 candidates</label>
+        </div>
+        <div id="viewport" aria-label="Editable obstacle scene" role="region">
+          <div class="scene-label"><span id="run-status" role="status" aria-live="polite">Loading model...</span><span id="obstacle-total">24 obstacles</span></div>
+          <div class="scene-legend"><span><i class="mint"></i>Executed</span><span><i class="yellow"></i>Selected</span><span><i class="gray"></i>Candidates</span></div>
+          <div class="axis-label">NWU · meters</div>
+          <div class="scene-error" id="scene-error" role="alert" hidden></div>
+        </div>
+      </div>
+      <aside>
+        <div class="depth-section"><h2>FORWARD DEPTH</h2><canvas id="depth" width="160" height="96" aria-label="Depth rendered from the current generated scene" role="img"></canvas><div class="depth-scale"><span>0 m</span><span>20 m</span></div></div>
+        <div class="telemetry">
+          <div class="speed-meter"><svg viewBox="0 0 200 118" aria-hidden="true"><path class="gauge-track" d="M 20 100 A 80 80 0 0 1 180 100"/><path id="speed-arc" d="M 20 100 A 80 80 0 0 1 180 100" pathLength="100"/></svg><p><strong id="speed">0.00</strong><span>m/s</span></p></div>
+          <dl><div><dt>Simulation</dt><dd><span id="sim-time">0.0</span> s</dd></div><div><dt>Goal distance</dt><dd><span id="goal-distance">24.00</span> m</dd></div><div><dt>Selected query</dt><dd id="selected-query">--</dd></div><div><dt>Browser inference</dt><dd><span id="inference-ms">--</span> ms</dd></div><div><dt>Model setting</dt><dd>5m/s</dd></div></dl>
+        </div>
+        <div class="height-fields"><label>Start z<input id="start-height" type="number" min=".3" max="6" step=".1" value="2"></label><label>Goal z<input id="goal-height" type="number" min=".3" max="6" step=".1" value="2"></label></div>
+      </aside>
+    </div>
+    <div class="run-bar">
+      <button class="run-button" id="run" type="button" disabled><img src="assets/play.svg" alt=""><span>Run LANTERN</span></button>
+      <button type="button" class="icon-button" id="step" aria-label="Advance one planning step" title="Advance one planning step" disabled><img src="assets/step-forward.svg" alt=""></button>
+      <button type="button" class="icon-button" id="reset" aria-label="Reset run" title="Reset run"><img src="assets/rotate-ccw.svg" alt=""></button>
+      <span class="model-label" id="model-label">Model loading</span>
+      <label class="rate-field"><span class="sr-only">Simulation rate</span><select id="simulation-rate" aria-label="Simulation rate"><option value=".5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option></select></label>
+      <button type="button" class="icon-button" id="import" aria-label="Import scene" title="Import scene"><img class="upload-icon" src="assets/download.svg" alt=""></button>
+      <input id="scene-file" type="file" accept=".json,application/json" hidden>
+      <button type="button" class="icon-button" id="export" aria-label="Download scene and run" title="Download scene and run"><img src="assets/download.svg" alt=""></button>
+    </div>
+  </main>
+  <p class="sandbox-note">LANTERN model · <span id="scene-selection">Custom scene</span> · Ideal trajectory tracking</p>
+  <details class="model-details"><summary>Model and environment</summary>
+    <p>Randomize uses success-screened demo seeds. Other obstacle counts are screened with live inference before display. These selected examples are separate from the paper's benchmarks. Manually entered seeds and edited scenes are unscreened.</p>
+    <p>The publication weights run locally with web terminal tuning in ONNX Runtime Web. Terminal queries retain the 5 m / 2 m activation range and use zero control residual. Each step renders a new 160 x 96 axial-depth image (90 x 60 degree field of view, 20 m range) and predicts 24 trajectory endpoints and costs. The minimum predicted cost selects the executable quintic curve. The scene is editable; no recorded flight is used.</p>
+    <p>Tracking follows the analytic trajectory reference at 10 Hz, without rigid-body dynamics, sensor noise or transport delay. Collision uses a 0.22 m vehicle radius. Arrival requires 3D error at most 0.1 m and speed at most 0.2m/s for 0.5 s. Runs stop on collision, scene exit or a 40 s timeout. These interactive scenes are separate from the paper's physical simulation and evaluation results.</p>
+    <p>Checkpoint SHA-256: <code>9707db065961831e109527476ceb8eb78164b16fd3e5cf58875189e066dae13b</code></p>
+    <a href="assets/planner-metadata.json" target="_blank" rel="noopener">Model metadata</a>
+  </details>
+  <noscript>JavaScript is required to run the planner.</noscript>
+</body>
+</html>
