@@ -22,8 +22,8 @@
     },
     {
       "path": "assets/demo-seeds.json",
-      "sha256": "f0dc8edfc7575626e3fc20859f272ad37f5c7340efecdbeae8ae2f2712225c02",
-      "bytes": 2447
+      "sha256": "ecfdda74003df2d49ff50177e3bbc3d6335c02d36e1d47b7e0a20b6d053c04e9",
+      "bytes": 2779
     },
     {
       "path": "assets/download.svg",
@@ -77,8 +77,8 @@
     },
     {
       "path": "assets/LANTERN_demo_source.zip",
-      "sha256": "90dffd9d83b1801ed94523383966b2d38d672728763043853dcebf89bbdbd4b2",
-      "bytes": 4543709
+      "sha256": "6272ee1abcba7e06e0d0d314e01aabac05a9bc801bd4e4854149483468bec775",
+      "bytes": 4543828
     },
     {
       "path": "assets/LANTERN_multimedia.zip",
@@ -267,8 +267,8 @@
     },
     {
       "path": "demo.js",
-      "sha256": "9999abcd087accb6835f3459c7c22f83724d4c87b4c307f4a52218c97c86565f",
-      "bytes": 30051
+      "sha256": "3e5c683b8bd3f3e9303bb5dc9b82d43af3b2a6bcdec51414ed54a44e7a674e76",
+      "bytes": 30106
     },
     {
       "path": "index.html",

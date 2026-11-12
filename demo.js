@@ -566,14 +566,14 @@ function animate() {
 }
 drawObstacles(); reset(); animate();
 const initialSceneEpoch = epoch;
-Promise.all([readyPromise, fetch("assets/planner-metadata.json").then(response => {
+Promise.all([readyPromise, fetch("assets/planner-metadata.json?v=level-terminal-20261113").then(response => {
   if (!response.ok) throw new Error("Model metadata could not be loaded.");
   return response.json();
-}), fetch("assets/demo-seeds.json?v=compact-selected-20261112").then(
+}), fetch("assets/demo-seeds.json?v=level-terminal-20261113").then(
   response => response.ok ? response.json() : null)]).then(async ([, model, catalog]) => {
   if (catalog) {
     const hashes = await Promise.all(["sandbox-core.js", "demo-execution.js", "demo.js"].map(async name => {
-      const source = await fetch(new URL(name, import.meta.url));
+      const source = await fetch(new URL(`${name}?v=level-terminal-20261113`, import.meta.url));
       if (!source.ok) throw new Error("Demo source could not be checked.");
       const digest = await crypto.subtle.digest("SHA-256", await source.arrayBuffer());
       return [...new Uint8Array(digest)].map(value => value.toString(16).padStart(2, "0")).join("");
