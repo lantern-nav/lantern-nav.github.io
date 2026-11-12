@@ -2,8 +2,10 @@
 
 A Lightweight Trajectory-Set Planner for Quadrotor Navigation
 
-Anonymous review materials: paper, narrated video, method figures, results,
-real-flight excerpts, and the live browser planner.
+Anonymous review materials: paper, method figures, measured results,
+a stopping comparison, one indoor flight, one outdoor flight, and the
+interactive browser planner. The complete submission video is available
+as a supplementary download rather than an embedded homepage film.
 
 Run locally with `python serve.py --port 8788`, then open the printed address.
 All model and runtime assets are local. The demo performs fresh ONNX inference;

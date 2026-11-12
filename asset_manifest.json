@@ -267,8 +267,8 @@
     },
     {
       "path": "index.html",
-      "sha256": "7a5911afce315f740c8028005e308e378b0f734dba634cce5bbde958efee40e4",
-      "bytes": 15752
+      "sha256": "0515abc80366aab764bcadf42377d9f2ba5afbc2b76de3aeda86b62fb3c5e96f",
+      "bytes": 13217
     },
     {
       "path": "planner-worker.js",
@@ -277,13 +277,13 @@
     },
     {
       "path": "project.js",
-      "sha256": "1f0c7aaef8394cd8a91381269a12b3c24982b66ef0a43656138e73ba40d6a29e",
-      "bytes": 7833
+      "sha256": "d9af5b6598de84df09e105bf0036148a7b6cee876a1e1a22c39b11c6bb2d886d",
+      "bytes": 6540
     },
     {
       "path": "README.md",
-      "sha256": "d7b40268530eab3f5317181ad8a60bc9a760fae5d77032892d2a4118bbff1284",
-      "bytes": 1108
+      "sha256": "8bb01e45de142e19fff0d212a42cd1342c9adfd190e466467eb8bbf98a6c1457",
+      "bytes": 1260
     },
     {
       "path": "sandbox-core.js",
@@ -297,8 +297,14 @@
     },
     {
       "path": "style.css",
-      "sha256": "b85000d9e6b60a80d7491306e2ce4c4c677fcefbdc05a0b14de585f4ab0cd28a",
-      "bytes": 17186
+      "sha256": "201342696305924fff42941283b2cf569408527025fda83e1a2e93d57a176513",
+      "bytes": 15907
     }
+  ],
+  "homepage_layout": "method-selected-experiments-live-demo",
+  "homepage_video_choices": [
+    "stopping",
+    "outdoor5",
+    "indoor"
   ]
 }

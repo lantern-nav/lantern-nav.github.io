@@ -1,32 +1,3 @@
-const hero = document.querySelector("#hero-video");
-const heroToggle = document.querySelector("#hero-toggle");
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-if (reducedMotion.matches) hero.pause();
-
-function updateHeroControl() {
-  const label = hero.paused ? "Play background video" : "Pause background video";
-  heroToggle.setAttribute("aria-label", label);
-  heroToggle.title = label;
-  heroToggle.querySelector("img").src = `assets/${hero.paused ? "play" : "pause"}.svg`;
-}
-hero.addEventListener("play", updateHeroControl);
-hero.addEventListener("pause", updateHeroControl);
-heroToggle.addEventListener("click", () => {
-  if (hero.paused) hero.play().catch(updateHeroControl);
-  else hero.pause();
-});
-updateHeroControl();
-reducedMotion.addEventListener("change", () => {
-  if (reducedMotion.matches) hero.pause();
-});
-const film = document.querySelector("#main-film");
-document.querySelectorAll("[data-seek]").forEach(button => {
-  button.addEventListener("click", () => {
-    film.currentTime = Number(button.dataset.seek);
-    film.play().catch(() => {});
-    film.focus({ preventScroll: true });
-  });
-});
 const methodData = {
   overview: {
     description: "24 queries generate and score quintic curves; the selected curve is rebuilt from the handoff state.",
@@ -68,8 +39,6 @@ document.querySelectorAll("[data-method]").forEach(button => {
 });
 const flights = {
   outdoor5: "Outdoor 5 · 5m/s · VINS estimate",
-  outdoor1: "Outdoor 1 · 5m/s · VINS estimate",
-  outdoor3: "Outdoor 3 · 5m/s · VINS estimate",
   indoor: "Indoor · Motion-capture estimate"
 };
 document.querySelectorAll("[data-flight]").forEach(button => {
@@ -128,10 +97,9 @@ window.addEventListener("scroll", () => {
     navLinks.forEach(link => link.removeAttribute("aria-current"));
 }, { passive: true });
 document.querySelectorAll("video").forEach(video => {
-  if (video === hero) return;
   video.addEventListener("play", () => {
     document.querySelectorAll("video").forEach(other => {
-      if (other !== video && other !== hero) other.pause();
+      if (other !== video) other.pause();
     });
   });
 });

@@ -7,7 +7,7 @@
   <meta name="description" content="LANTERN: A Lightweight Trajectory-Set Planner for Quadrotor Navigation. Research overview, method, simulation and real-flight experiments, paper, code, and an interactive planner.">
   <meta property="og:title" content="LANTERN">
   <meta property="og:description" content="A Lightweight Trajectory-Set Planner for Quadrotor Navigation">
-  <meta property="og:image" content="assets/outdoor-poster.jpg">
+  <meta property="og:image" content="assets/method-overview.png">
   <title>LANTERN | A Lightweight Trajectory-Set Planner for Quadrotor Navigation</title>
   <link rel="icon" href="assets/favicon.png">
   <link rel="stylesheet" href="style.css">
@@ -33,44 +33,18 @@
       <p class="small-note">Anonymous authors</p>
       <div class="paper-actions">
         <a class="primary" href="assets/LANTERN_paper.pdf" target="_blank" rel="noopener"><img src="assets/file-text.svg" alt="">Paper</a>
-        <a href="#film"><img src="assets/play.svg" alt="">Video <span>3:17</span></a>
+        <a href="#method"><img src="assets/expand.svg" alt="">Method</a>
         <a href="assets/LANTERN_demo_source.zip" download><img src="assets/code-xml.svg" alt="">Demo code</a>
-        <a href="#demo"><img src="assets/expand.svg" alt="">Demo</a>
+        <a href="#demo"><img src="assets/play.svg" alt="">Live demo</a>
       </div>
     </section>
-    <div class="teaser wrap">
-      <video id="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/outdoor-poster.jpg" aria-label="First-person view from a recorded outdoor quadrotor flight">
-        <source src="assets/fpv.mp4" type="video/mp4">
-      </video>
-      <div class="teaser-caption"><span>Onboard view <span class="caption-divider">/</span> 1×</span><button id="hero-toggle" class="icon-button" type="button" aria-label="Pause background video" title="Pause background video"><img src="assets/pause.svg" alt=""></button></div>
-    </div>
-
     <section class="abstract narrow" id="overview" aria-labelledby="abstract-heading">
       <h2 id="abstract-heading">Overview</h2>
-      <p>Quadrotor navigation through clutter requires alternative ways around obstacles, frequent replanning, and precise stopping within an onboard compute budget. LANTERN separates a candidate's directional role from its visual readout: directional anchors define the alternatives, while shared cross-attention lets each candidate read geometry across the depth image. This allows a narrow CNN to serve the entire trajectory set.</p>
-      <p>From a single depth frame and the motion state, LANTERN generates and scores 24 executable quintic trajectories. Six queries adapt to the goal distance to support precise stopping. A common differentiable trajectory cost trains generation and scoring; online, the lowest-scoring curve is selected and rebuilt at the reference handoff.</p>
+      <p>LANTERN plans quadrotor motion through clutter from a single depth frame and the motion state. A narrow CNN and shared attention generate and score 24 executable quintic trajectories, with directional anchors providing alternatives around obstacles and six goal-adaptive queries supporting precise stopping. A common differentiable trajectory cost supervises generation and scoring; online, the lowest-scoring curve is selected and rebuilt at the reference handoff.</p>
       <div class="key-facts" aria-label="Paper highlights">
         <span><b>24</b> trajectory queries</span>
         <span><b>0.260M</b> active parameters</span>
         <span><b>Single-frame</b> depth input</span>
-      </div>
-    </section>
-
-    <section class="section band" id="film" aria-labelledby="film-heading">
-      <div class="wrap">
-        <div class="section-heading"><p class="eyebrow">PROJECT VIDEO</p><h2 id="film-heading">Method and experiments</h2></div>
-        <video id="main-film" class="wide-video" controls playsinline preload="metadata" poster="assets/film-poster.jpg">
-          <source src="assets/LANTERN_video.mp4?v=en-subtitles-20261112" type="video/mp4">
-          Your browser does not support MP4 playback. <a href="assets/LANTERN_video.mp4">Download the film.</a>
-        </video>
-        <div class="chapters" aria-label="Film chapters">
-          <button type="button" data-seek="4.5"><span>00:04</span>Method</button>
-          <button type="button" data-seek="75.1"><span>01:15</span>5m/s</button>
-          <button type="button" data-seek="95.1"><span>01:35</span>8m/s</button>
-          <button type="button" data-seek="115.1"><span>01:55</span>Stopping</button>
-          <button type="button" data-seek="135.2"><span>02:15</span>Real flights</button>
-          <a class="download-film" href="assets/LANTERN_video.mp4" download><img src="assets/download.svg" alt="">MP4</a>
-        </div>
       </div>
     </section>
 
@@ -145,8 +119,6 @@
         <div class="section-heading"><p class="eyebrow">REAL ROBOT</p><h2 id="flights-heading">Indoor and outdoor flights</h2><p>Selected onboard deployment recordings · 1×</p></div>
         <div class="tabs flight-tabs" role="tablist" aria-label="Recorded flight selection">
           <button role="tab" id="flight-outdoor5" aria-controls="flight-panel" aria-selected="true" tabindex="0" data-flight="outdoor5">Outdoor 5</button>
-          <button role="tab" id="flight-outdoor1" aria-controls="flight-panel" aria-selected="false" tabindex="-1" data-flight="outdoor1">Outdoor 1</button>
-          <button role="tab" id="flight-outdoor3" aria-controls="flight-panel" aria-selected="false" tabindex="-1" data-flight="outdoor3">Outdoor 3</button>
           <button role="tab" id="flight-indoor" aria-controls="flight-panel" aria-selected="false" tabindex="-1" data-flight="indoor">Indoor</button>
         </div>
         <div id="flight-panel" role="tabpanel" aria-labelledby="flight-outdoor5">
@@ -173,8 +145,7 @@
       <p>LANTERN: A Lightweight Trajectory-Set Planner for Quadrotor Navigation</p>
       <div class="resource-links">
         <a href="assets/LANTERN_paper.pdf" target="_blank" rel="noopener"><img src="assets/file-text.svg" alt="">Paper PDF <img src="assets/arrow-up-right.svg" alt=""></a>
-        <a href="assets/LANTERN_multimedia.zip" download><img src="assets/download.svg" alt="">Supplementary video</a>
-        <a href="assets/English.srt" download><img src="assets/download.svg" alt="">English subtitles</a>
+        <a href="assets/LANTERN_multimedia.zip?v=horizons-v11-20261112" download><img src="assets/download.svg" alt="">Supplementary video</a>
         <a href="assets/LANTERN_demo_source.zip" download><img src="assets/code-xml.svg" alt="">Browser demo source <img src="assets/arrow-up-right.svg" alt=""></a>
       </div>
       <p class="figure-caption">The research repository is withheld during anonymous review.</p>
