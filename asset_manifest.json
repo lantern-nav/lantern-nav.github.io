@@ -87,8 +87,8 @@
     },
     {
       "path": "assets/LANTERN_paper.pdf",
-      "sha256": "223ab5df534a631c87b099dc9c805047e01e587f1e6108cb1b4c387109854b13",
-      "bytes": 4393040
+      "sha256": "ca35a01408a218efdcf2c32886a2c5135f044498329bcdb80667ec89dd303ab8",
+      "bytes": 4881758
     },
     {
       "path": "assets/LANTERN_video.mp4",
@@ -272,8 +272,8 @@
     },
     {
       "path": "index.html",
-      "sha256": "4accd1871a0a0577c37fd0f0a6f42d72c39d50c899030bfc2519b310de6bbb6a",
-      "bytes": 13211
+      "sha256": "d6bfd901bbf7d6cc880994089d9d83d24189be04e2f9c3e31e910654b2e6cbae",
+      "bytes": 13301
     },
     {
       "path": "planner-worker.js",
@@ -313,5 +313,10 @@
     "indoor"
   ],
   "web_execution": "level-terminal-20261113",
-  "selected_demo_seed_count": 70
+  "selected_demo_seed_count": 70,
+  "paper_revision": {
+    "version": "paper-20261113-bce1fd978200",
+    "pages": 8,
+    "metadata_anonymous": true
+  }
 }
