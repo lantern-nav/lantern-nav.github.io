@@ -127,7 +127,7 @@ td>span{font-size:10px;color:var(--muted);margin-left:2px}
 .latency-row strong{font-family:var(--display);font-size:28px;font-weight:500;line-height:1}
 .latency-row strong span{font-size:12px;font-weight:400}
 .bar-track{height:12px;background:#e8edef;overflow:hidden;border-radius:2px}
-.bar{display:block;width:0;height:100%;background:#85948c;transition:width .8s ease}
+.bar{display:block;width:var(--bar-width);height:100%;background:#85948c;transition:width .8s ease}
 .latency-block.in-view .bar{width:var(--bar-width)}
 .ours .bar{background:var(--green)}
 .latency-block>.figure-caption{margin-top:22px}

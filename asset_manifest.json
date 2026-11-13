@@ -332,8 +332,8 @@
     },
     {
       "path": "style.css",
-      "sha256": "d58bbb6633fa5aa4ed80aef5dc94c705aeefa5eea3722a6a48b10a2bf99d58f4",
-      "bytes": 17495
+      "sha256": "772700adbebf03ddd068461d3b58719479e8a43484973c7d7d8af0fbfae2a37b",
+      "bytes": 17510
     }
   ],
   "homepage_layout": "method-selected-experiments-live-demo",
