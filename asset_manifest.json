@@ -56,6 +56,36 @@
       "bytes": 61849
     },
     {
+      "path": "assets/fonts/google-sans-latin.woff2",
+      "sha256": "df4ccb79a78e07ce44367a5ebcc7487bc58dd33b88a0c2a7e7db2735f4d6803e",
+      "bytes": 36040
+    },
+    {
+      "path": "assets/fonts/GoogleSans-OFL.txt",
+      "sha256": "2b75ef20f13d83a7514aee452c4782c20cdc9ff2dee17600f44d37a06d4fb958",
+      "bytes": 4488
+    },
+    {
+      "path": "assets/fonts/noto-sans-latin.woff2",
+      "sha256": "51ca196f49a33e79e7870ff88ebd2829a3f627a51e7d690986618f0e7ad2b52d",
+      "bytes": 35820
+    },
+    {
+      "path": "assets/fonts/NotoSans-OFL.txt",
+      "sha256": "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a",
+      "bytes": 4396
+    },
+    {
+      "path": "assets/fonts/README.md",
+      "sha256": "8bd0da4bfc35e141e1f96810b3ff300d0511c65b6d8c9b10b9ee71a4fef08770",
+      "bytes": 594
+    },
+    {
+      "path": "assets/fonts.css",
+      "sha256": "46818f751dd38300d9d6478d9f3fd1d4f6deb167cec32e1313bd1bc32eca943b",
+      "bytes": 344
+    },
+    {
       "path": "assets/fpv.mp4",
       "sha256": "3436d67ccf6345f707bef0c4e1cd1f2609dd9a7e0a9e16ac0b0aa222a2f47b63",
       "bytes": 3657013
@@ -77,8 +107,8 @@
     },
     {
       "path": "assets/LANTERN_demo_source.zip",
-      "sha256": "6272ee1abcba7e06e0d0d314e01aabac05a9bc801bd4e4854149483468bec775",
-      "bytes": 4543828
+      "sha256": "d2b289df93b5364736fed62b91e5ec803adf81a95b4bbc5d5b287c43649f70f3",
+      "bytes": 4621164
     },
     {
       "path": "assets/LANTERN_multimedia.zip",
@@ -257,13 +287,13 @@
     },
     {
       "path": "demo.css",
-      "sha256": "94b25c3eb715cc8f085729d196288607f74818c8ad065c1ee4ab1506c77afa09",
-      "bytes": 8833
+      "sha256": "b9c1f6470db0dc0929fee6e81d2a9f40ee29b0a064fda2bf53b83447f6ff2087",
+      "bytes": 8936
     },
     {
       "path": "demo.html",
-      "sha256": "f5708b6584566a8608c6506a160681915a206ef2831494e6a1f23d2fdef697ec",
-      "bytes": 7679
+      "sha256": "04f20df0a9108a2825d11e3c579cc9eddcd3275f1ddf57845bf5a14bbf4f4661",
+      "bytes": 7761
     },
     {
       "path": "demo.js",
@@ -272,8 +302,8 @@
     },
     {
       "path": "index.html",
-      "sha256": "0a7145a6adbd0e6a7d4ac77fd1ff9f243ec41c5bb2609dfd831910248e749b31",
-      "bytes": 13333
+      "sha256": "9fd22e47becf5356ec0a948a6dfff0b2245acc40674f6634ca12727488d413dd",
+      "bytes": 13630
     },
     {
       "path": "planner-worker.js",
@@ -287,8 +317,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "b870697ee6641e57520e041e340da97b9efc877e027f92130f40d15f947f9c89",
-      "bytes": 2378
+      "sha256": "c96f834513a6aafa9ff07e811570cacec76093a1f8899ae509ac895bb339c438",
+      "bytes": 2515
     },
     {
       "path": "sandbox-core.js",
@@ -302,8 +332,8 @@
     },
     {
       "path": "style.css",
-      "sha256": "201342696305924fff42941283b2cf569408527025fda83e1a2e93d57a176513",
-      "bytes": 15907
+      "sha256": "d58bbb6633fa5aa4ed80aef5dc94c705aeefa5eea3722a6a48b10a2bf99d58f4",
+      "bytes": 17495
     }
   ],
   "homepage_layout": "method-selected-experiments-live-demo",
@@ -319,5 +349,12 @@
     "pages": 8,
     "metadata_anonymous": true
   },
-  "source_repository": "https://anonymous.4open.science/r/LANTERN-4944/"
+  "source_repository": "https://anonymous.4open.science/r/LANTERN-4944/",
+  "typography": {
+    "version": "type-20261113",
+    "headings": "Google Sans",
+    "body": "Noto Sans",
+    "locally_hosted": true,
+    "font_license": "SIL Open Font License 1.1"
+  }
 }

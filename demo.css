@@ -1,8 +1,8 @@
 :root{color-scheme:dark;--bg:#080b0b;--panel:#0f1313;--line:#293131;--muted:#9aa5a5;--text:#eff2ee;--mint:#83e7c0;--yellow:#f3e86a}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:13px/1.5 Arial,Helvetica,sans-serif;letter-spacing:0}
+body{margin:0;background:var(--bg);color:var(--text);font:13px/1.5 "Noto Sans",sans-serif;letter-spacing:0;-webkit-font-smoothing:antialiased}
 button,input,select{font:inherit;color:inherit;letter-spacing:0}
-button,select{cursor:pointer}
+button,select{cursor:pointer;font-family:"Google Sans","Noto Sans",sans-serif}
 button{border:1px solid #475353;background:#192121;border-radius:3px;padding:8px 13px;min-height:36px}
 button:hover{background:#273131;border-color:#a1b0ab}
 button:disabled{opacity:.4;cursor:wait}
@@ -13,7 +13,7 @@ input[type=range]{width:100%;margin:0;height:19px}
 a{color:inherit;text-decoration:none}
 img{width:16px;height:16px}
 .demo-header{height:68px;display:flex;align-items:center;gap:22px;padding-inline:28px;border-bottom:1px solid var(--line)}
-.demo-header>a:first-child{font-size:22px;font-weight:bold}
+.demo-header>a:first-child{font:600 22px/1.2 "Google Sans","Noto Sans",sans-serif}
 .demo-header>a:first-child span{color:var(--yellow)}
 .demo-header>span{color:var(--muted)}
 .project-link{margin-left:auto;display:flex;gap:7px;align-items:center;font-size:12px}

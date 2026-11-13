@@ -41,3 +41,6 @@ The research source is available at the [anonymous repository](https://anonymous
 The demo source is also included. Licenses remain in assets/vendor/ and
 assets/lucide-LICENSE.
 The supplementary film includes permanent English subtitles and music credit.
+
+Web fonts are bundled in `assets/fonts/`, with their SIL Open Font
+License notices. The page does not contact a remote font service.
