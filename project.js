@@ -20,6 +20,65 @@ const methodData = {
     alt: "Illustration of 24 candidate costs and corresponding cost-based training weights."
   }
 };
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const explore = document.querySelector(".explore-menu");
+explore.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => { explore.open = false; });
+});
+document.addEventListener("click", event => {
+  if (!explore.contains(event.target)) explore.open = false;
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && explore.open) {
+    explore.open = false;
+    explore.querySelector("summary").focus();
+  }
+});
+const heroVideo = document.querySelector("#hero-video");
+const heroPlayback = document.querySelector("#hero-playback");
+heroPlayback.hidden = false;
+let heroAutoPlay = !reducedMotion.matches && !navigator.connection?.saveData;
+function updateHeroPlayback() {
+  const playing = !heroVideo.paused;
+  const label = `${playing ? "Pause" : "Play"} first-person video`;
+  heroPlayback.setAttribute("aria-label", label);
+  heroPlayback.title = label;
+  heroPlayback.querySelector("img").src = `assets/${playing ? "pause" : "play"}.svg`;
+}
+heroVideo.addEventListener("play", updateHeroPlayback);
+heroVideo.addEventListener("pause", updateHeroPlayback);
+heroPlayback.addEventListener("click", () => {
+  if (heroVideo.paused) {
+    heroAutoPlay = true;
+    heroVideo.play().catch(updateHeroPlayback);
+  } else {
+    heroAutoPlay = false;
+    heroVideo.pause();
+  }
+});
+function syncHeroPlayback() {
+  const bounds = heroVideo.getBoundingClientRect();
+  const visible = bounds.bottom > 66 && bounds.top < innerHeight && !document.hidden;
+  if (!visible) heroVideo.pause();
+  else if (heroAutoPlay) heroVideo.play().catch(updateHeroPlayback);
+}
+new IntersectionObserver(syncHeroPlayback, { threshold: [0, .25] }).observe(heroVideo);
+document.addEventListener("visibilitychange", syncHeroPlayback);
+reducedMotion.addEventListener("change", () => {
+  if (reducedMotion.matches) { heroAutoPlay = false; heroVideo.pause(); }
+});
+// Content stays visible without scripting or animation.
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    if (!reducedMotion.matches) entry.target.animate(
+      [{ transform: "translateY(18px)" }, { transform: "translateY(0)" }],
+      { duration: 650, easing: "cubic-bezier(.2,.65,.3,1)" }
+    );
+    revealObserver.unobserve(entry.target);
+  });
+}, { threshold: .12 });
+document.querySelectorAll("[data-reveal]").forEach(item => revealObserver.observe(item));
 function selectTab(button, group) {
   group.querySelectorAll('[role="tab"]').forEach(tab => {
     const selected = tab === button;
@@ -75,12 +134,6 @@ document.querySelector("[data-enlarge]").addEventListener("click", () => {
 });
 document.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
 dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
-const latencyObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) { entry.target.classList.add("in-view"); latencyObserver.unobserve(entry.target); }
-  });
-}, { threshold: .2 });
-document.querySelectorAll(".latency-block").forEach(item => latencyObserver.observe(item));
 const navLinks = [...document.querySelectorAll('nav a[href^="#"]')];
 const sectionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -98,6 +151,7 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 document.querySelectorAll("video").forEach(video => {
   video.addEventListener("play", () => {
+    if (video !== heroVideo) heroAutoPlay = false;
     document.querySelectorAll("video").forEach(other => {
       if (other !== video) other.pause();
     });

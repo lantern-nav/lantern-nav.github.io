@@ -66,6 +66,26 @@
       "bytes": 4488
     },
     {
+      "path": "assets/fonts/inter-latin.woff2",
+      "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+      "bytes": 48256
+    },
+    {
+      "path": "assets/fonts/Inter-OFL.txt",
+      "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57",
+      "bytes": 4377
+    },
+    {
+      "path": "assets/fonts/inter-tight-latin.woff2",
+      "sha256": "77fefe8ca19b9f69b5284832c519e0493127c1f091f0a8936884be7721c4e618",
+      "bytes": 44872
+    },
+    {
+      "path": "assets/fonts/InterTight-OFL.txt",
+      "sha256": "50240ab035cf1b6b3307940235481d515c4b6de3ab1fa843dbe59e7892cb9d58",
+      "bytes": 4383
+    },
+    {
       "path": "assets/fonts/noto-sans-latin.woff2",
       "sha256": "51ca196f49a33e79e7870ff88ebd2829a3f627a51e7d690986618f0e7ad2b52d",
       "bytes": 35820
@@ -77,13 +97,18 @@
     },
     {
       "path": "assets/fonts/README.md",
-      "sha256": "8bd0da4bfc35e141e1f96810b3ff300d0511c65b6d8c9b10b9ee71a4fef08770",
-      "bytes": 594
+      "sha256": "2c5b407ede520ba9211fdc0af48df9332af71e85a9d021d647f3a9f1f9f04a83",
+      "bytes": 835
     },
     {
       "path": "assets/fonts.css",
       "sha256": "46818f751dd38300d9d6478d9f3fd1d4f6deb167cec32e1313bd1bc32eca943b",
       "bytes": 344
+    },
+    {
+      "path": "assets/fpv-poster.jpg",
+      "sha256": "1caef025b7ef5243a84b8a9ed5b1b422156c7e7acb7a8dbab3e46896ee7a7109",
+      "bytes": 88244
     },
     {
       "path": "assets/fpv.mp4",
@@ -216,6 +241,11 @@
       "bytes": 314
     },
     {
+      "path": "assets/project-fonts.css",
+      "sha256": "b7faa6586701024e8bc1794042c16af4577ce04a7cd9a785bda1b534e64f5ec4",
+      "bytes": 336
+    },
+    {
       "path": "assets/rotate-ccw.svg",
       "sha256": "ceff9f28592f1f2c125cbdc94cede286da4b49b9735e78eb057d2a6539b09b0c",
       "bytes": 292
@@ -302,8 +332,8 @@
     },
     {
       "path": "index.html",
-      "sha256": "9fd22e47becf5356ec0a948a6dfff0b2245acc40674f6634ca12727488d413dd",
-      "bytes": 13630
+      "sha256": "9c01dcfd20becf1d833b5185a8f4fc38367c67af9cf49e399646296c156aa813",
+      "bytes": 15312
     },
     {
       "path": "planner-worker.js",
@@ -312,8 +342,8 @@
     },
     {
       "path": "project.js",
-      "sha256": "d9af5b6598de84df09e105bf0036148a7b6cee876a1e1a22c39b11c6bb2d886d",
-      "bytes": 6540
+      "sha256": "cda2188d6f16c997cea666d4c4224188ecee209f7bfe4e24d794f2b9c414760c",
+      "bytes": 8765
     },
     {
       "path": "README.md",
@@ -332,11 +362,11 @@
     },
     {
       "path": "style.css",
-      "sha256": "772700adbebf03ddd068461d3b58719479e8a43484973c7d7d8af0fbfae2a37b",
-      "bytes": 17510
+      "sha256": "1beadf31fa8158f64df1fb79e50e18061ddbc7ce7e0621b9fe39d0a5e3668e0f",
+      "bytes": 19227
     }
   ],
-  "homepage_layout": "method-selected-experiments-live-demo",
+  "homepage_layout": "studio-20261114",
   "homepage_video_choices": [
     "stopping",
     "outdoor5",
@@ -351,10 +381,12 @@
   },
   "source_repository": "https://anonymous.4open.science/r/LANTERN-4944/",
   "typography": {
-    "version": "type-20261113",
-    "headings": "Google Sans",
-    "body": "Noto Sans",
+    "version": "studio-20261114",
+    "headings": "Inter Tight",
+    "body": "Inter",
     "locally_hosted": true,
-    "font_license": "SIL Open Font License 1.1"
+    "font_license": "SIL Open Font License 1.1",
+    "demo_headings": "Google Sans",
+    "demo_body": "Noto Sans"
   }
 }
