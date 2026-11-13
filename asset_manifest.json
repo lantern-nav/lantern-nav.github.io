@@ -272,8 +272,8 @@
     },
     {
       "path": "index.html",
-      "sha256": "d6bfd901bbf7d6cc880994089d9d83d24189be04e2f9c3e31e910654b2e6cbae",
-      "bytes": 13301
+      "sha256": "0a7145a6adbd0e6a7d4ac77fd1ff9f243ec41c5bb2609dfd831910248e749b31",
+      "bytes": 13333
     },
     {
       "path": "planner-worker.js",
@@ -287,8 +287,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "1e5c8141a9267b9c86cdc7960df7065367c56d643ee04358a74184eb97494422",
-      "bytes": 2320
+      "sha256": "b870697ee6641e57520e041e340da97b9efc877e027f92130f40d15f947f9c89",
+      "bytes": 2378
     },
     {
       "path": "sandbox-core.js",
@@ -318,5 +318,6 @@
     "version": "paper-20261113-bce1fd978200",
     "pages": 8,
     "metadata_anonymous": true
-  }
+  },
+  "source_repository": "https://anonymous.4open.science/r/LANTERN-4944/"
 }

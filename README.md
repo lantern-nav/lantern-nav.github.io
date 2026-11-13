@@ -37,6 +37,7 @@ Run exports include the execution settings and selection provenance.
 Model and environment contains the complete assumptions. Tracking is ideal
 analytic reference following, without rigid-body dynamics or sensor noise.
 
-The demo source is included. The research repository is withheld during
-anonymous review. Licenses remain in assets/vendor/ and assets/lucide-LICENSE.
+The research source is available at the [anonymous repository](https://anonymous.4open.science/r/LANTERN-4944/).
+The demo source is also included. Licenses remain in assets/vendor/ and
+assets/lucide-LICENSE.
 The supplementary film includes permanent English subtitles and music credit.
