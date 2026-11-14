@@ -337,8 +337,8 @@
     },
     {
       "path": "index.html",
-      "sha256": "b6b32363ea3365edf805a88a5b7f1e070a7ddaf1a284fd3b18a1184bba73c185",
-      "bytes": 15332
+      "sha256": "1e6fa4a3e52347b993686e45e78bc2b24ad62bdfdd5361fd579af2dcaf02ee79",
+      "bytes": 15337
     },
     {
       "path": "planner-worker.js",
