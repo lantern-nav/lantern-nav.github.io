@@ -133,12 +133,12 @@ td > span { margin-left: 2px; font-size: 10px; color: var(--muted); }
 .wide-video { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: contain; }
 .flight-tabs { min-width: 240px; }
 .flight-tabs button { flex: 1; }
-.demo-preview { position: relative; aspect-ratio: 1202/510; background: #080b0b; }
+.demo-preview { position: relative; aspect-ratio: 1202/510; background: #f5f5f7; }
 .demo-preview > img { width: 100%; height: 100%; object-fit: contain; }
 .launch-demo { position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; gap: 10px; padding: 13px 25px; border: 0; border-radius: 999px; background: var(--blue); color: #fff; font-size: 15px; white-space: nowrap; font-weight: 500; box-shadow: 0 2px 15px #0003; }
 .launch-demo > img { width: 16px; height: 16px; }
 .launch-demo:hover { background: #0077ed; }
-.live-sandbox { width: 100%; display: block; height: 800px; border: 0; background: #080b0b; }
+.live-sandbox { width: 100%; display: block; height: 800px; border: 0; background: #f5f5f7; }
 .demo-caption { display: flex; justify-content: space-between; align-items: flex-start; gap: 22px; margin-top: 18px; color: var(--muted); font-size: 12px; }
 .demo-links { display: flex; align-items: center; gap: 22px; }
 .demo-links a, .demo-links button { display: flex; gap: 6px; align-items: center; background: transparent; border: 0; padding: 0; color: var(--blue); font: inherit; white-space: nowrap; }

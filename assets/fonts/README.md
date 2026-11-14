@@ -1,7 +1,8 @@
 # Local Web Fonts
 
 The project homepage uses Inter Tight for headings and Inter for prose.
-The standalone planner retains Google Sans and Noto Sans.
+The live planner uses the same Inter Tight and Inter families.
+Google Sans and Noto Sans remain bundled for older standalone assets.
 Files are unmodified Latin variable WOFF2 distributions from Google Fonts.
 
 Inter (400-700):

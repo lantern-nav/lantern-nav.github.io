@@ -22,8 +22,8 @@
     },
     {
       "path": "assets/demo-seeds.json",
-      "sha256": "ecfdda74003df2d49ff50177e3bbc3d6335c02d36e1d47b7e0a20b6d053c04e9",
-      "bytes": 2779
+      "sha256": "ff45009013820b8f7e75b9e5558f407aad44c64b1a7ba2f605c4c7f7ae9ac7c7",
+      "bytes": 3179
     },
     {
       "path": "assets/download.svg",
@@ -97,8 +97,8 @@
     },
     {
       "path": "assets/fonts/README.md",
-      "sha256": "2c5b407ede520ba9211fdc0af48df9332af71e85a9d021d647f3a9f1f9f04a83",
-      "bytes": 835
+      "sha256": "7068688aaa539346ebaacacd4d94aa40d15a813eb6203d8ddb423ab4c7183b47",
+      "bytes": 910
     },
     {
       "path": "assets/fonts.css",
@@ -132,8 +132,8 @@
     },
     {
       "path": "assets/LANTERN_demo_source.zip",
-      "sha256": "d2b289df93b5364736fed62b91e5ec803adf81a95b4bbc5d5b287c43649f70f3",
-      "bytes": 4621164
+      "sha256": "72cd0dbf68f46a16837ac12fdbc77f2ae204bea5a61fb546d6d415ed1473e898",
+      "bytes": 4722580
     },
     {
       "path": "assets/LANTERN_multimedia.zip",
@@ -152,8 +152,8 @@
     },
     {
       "path": "assets/live-demo-preview.jpg",
-      "sha256": "b3e5e95a75b1f51c89f1063624567f192aa7b454b99864fc0c75734dcb00caab",
-      "bytes": 33166
+      "sha256": "e3434e9b1b2290794848116bd967dcae335a3f9440fa5cbb0d6c2bf7d6827efc",
+      "bytes": 38694
     },
     {
       "path": "assets/lucide-LICENSE",
@@ -291,6 +291,11 @@
       "bytes": 49926
     },
     {
+      "path": "assets/vendor/RoundedBoxGeometry.js",
+      "sha256": "c1b7c9bd2cddff2e3f3a0723f618a3d364a47450e3d25771d21faed88410bec8",
+      "bytes": 6476
+    },
+    {
       "path": "assets/vendor/three-LICENSE",
       "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
       "bytes": 1081
@@ -317,23 +322,23 @@
     },
     {
       "path": "demo.css",
-      "sha256": "b9c1f6470db0dc0929fee6e81d2a9f40ee29b0a064fda2bf53b83447f6ff2087",
-      "bytes": 8936
+      "sha256": "680d85eb18676b02b84a50f7bfb76ec9caf7e14117effadaa140f3e9459f17ed",
+      "bytes": 10838
     },
     {
       "path": "demo.html",
-      "sha256": "04f20df0a9108a2825d11e3c579cc9eddcd3275f1ddf57845bf5a14bbf4f4661",
-      "bytes": 7761
+      "sha256": "69b1ac081be2e12ba15b2b8bbe67a2b6d92bf21000fc16bf3927d88670af3fcc",
+      "bytes": 7868
     },
     {
       "path": "demo.js",
-      "sha256": "3e5c683b8bd3f3e9303bb5dc9b82d43af3b2a6bcdec51414ed54a44e7a674e76",
-      "bytes": 30106
+      "sha256": "db160b5c1d2b373a006931786d317811ee253304801049423c57af62a78cee30",
+      "bytes": 33648
     },
     {
       "path": "index.html",
-      "sha256": "9c01dcfd20becf1d833b5185a8f4fc38367c67af9cf49e399646296c156aa813",
-      "bytes": 15312
+      "sha256": "b6b32363ea3365edf805a88a5b7f1e070a7ddaf1a284fd3b18a1184bba73c185",
+      "bytes": 15332
     },
     {
       "path": "planner-worker.js",
@@ -362,7 +367,7 @@
     },
     {
       "path": "style.css",
-      "sha256": "1beadf31fa8158f64df1fb79e50e18061ddbc7ce7e0621b9fe39d0a5e3668e0f",
+      "sha256": "9524912b19f93e9506ffbe20484dfa03d8a1977d4a8b73b9d82450d736f7f411",
       "bytes": 19227
     }
   ],
@@ -386,7 +391,8 @@
     "body": "Inter",
     "locally_hosted": true,
     "font_license": "SIL Open Font License 1.1",
-    "demo_headings": "Google Sans",
-    "demo_body": "Noto Sans"
-  }
+    "demo_headings": "Inter Tight",
+    "demo_body": "Inter"
+  },
+  "demo_presentation": "studio-demo-20261114"
 }

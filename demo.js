@@ -1,5 +1,6 @@
 import * as THREE from "./assets/vendor/three.module.js";
 import { OrbitControls } from "./assets/vendor/OrbitControls.js";
+import { RoundedBoxGeometry } from "./assets/vendor/RoundedBoxGeometry.js";
 import {
   SETTINGS, norm, sub, generateScene, renderDepth, bodyState,
   evaluateCurve, calculateYaw, clearance, validateScene
@@ -20,13 +21,16 @@ let terminalPlan = null;
 const qualificationAttempts = [];
 const viewport = $("viewport");
 const scene = new THREE.Scene();
-scene.background = new THREE.Color("#080b0b");
+scene.background = new THREE.Color("#f5f5f7");
 const camera = new THREE.PerspectiveCamera(43, 1, .1, 180);
 camera.up.set(0, 0, 1);
 camera.position.set(-20, -25, 24);
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFShadowMap;
+renderer.toneMapping = THREE.NeutralToneMapping;
 viewport.prepend(renderer.domElement);
 renderer.domElement.setAttribute("aria-label", "3D obstacle scene with live LANTERN trajectories");
 renderer.domElement.setAttribute("role", "img");
@@ -36,45 +40,82 @@ controls.enableDamping = true;
 controls.minDistance = 8;
 controls.maxDistance = 140;
 controls.maxPolarAngle = Math.PI * .49;
-scene.add(new THREE.HemisphereLight(0xffffff, 0x4f6b60, 2.2));
-const light = new THREE.DirectionalLight(0xffffff, 2.5);
-light.position.set(-8, -6, 18);
+const ambient = new THREE.HemisphereLight(0xffffff, 0xbfc4cc, 2.3);
+ambient.position.set(0, 0, 1);
+scene.add(ambient);
+const light = new THREE.DirectionalLight(0xffffff, 3);
+light.position.set(-10, -12, 35);
+light.castShadow = true;
+light.shadow.mapSize.set(2048, 2048);
+Object.assign(light.shadow.camera, { left: -24, right: 24, top: 20, bottom: -20, near: 1, far: 70 });
+light.shadow.normalBias = .035;
+light.shadow.bias = -.0001;
+light.shadow.radius = 4;
 scene.add(light);
 const floor = new THREE.Mesh(new THREE.PlaneGeometry(2 * SETTINGS.bounds.x, 2 * SETTINGS.bounds.y),
-  new THREE.MeshStandardMaterial({ color: 0x101616, roughness: 1, side: THREE.DoubleSide }));
+  new THREE.MeshStandardMaterial({ color: 0xe9eaee, roughness: .95, side: THREE.DoubleSide }));
 floor.position.z = -.025;
+floor.receiveShadow = true;
 scene.add(floor);
-const grid = new THREE.GridHelper(2 * SETTINGS.bounds.x, SETTINGS.bounds.x, 0x3c4b47, 0x202c28);
-grid.rotation.x = Math.PI / 2;
-grid.position.z = -.012;
+const gridPoints = [];
+for (let x = -SETTINGS.bounds.x; x <= SETTINGS.bounds.x; x += 2)
+  gridPoints.push(new THREE.Vector3(x, -SETTINGS.bounds.y, -.012), new THREE.Vector3(x, SETTINGS.bounds.y, -.012));
+for (let y = -SETTINGS.bounds.y; y <= SETTINGS.bounds.y; y += 2)
+  gridPoints.push(new THREE.Vector3(-SETTINGS.bounds.x, y, -.012), new THREE.Vector3(SETTINGS.bounds.x, y, -.012));
+const grid = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(gridPoints),
+  new THREE.LineBasicMaterial({ color: 0xcbd0d8, transparent: true, opacity: .38 }));
 scene.add(grid);
 const obstacleGroup = new THREE.Group(), candidateGroup = new THREE.Group();
 scene.add(obstacleGroup, candidateGroup);
-const obstacleMaterial = new THREE.MeshStandardMaterial({ color: 0x677a71, roughness: .82 });
-const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x9ab2a4, transparent: true, opacity: .65 });
-const executedMaterial = new THREE.LineBasicMaterial({ color: 0x83e7c0 });
-const executedLine = new THREE.Line(new THREE.BufferGeometry(), executedMaterial);
+const obstacleMaterials = {
+  pillar: new THREE.MeshStandardMaterial({ color: 0xb7c0cc, roughness: .64, metalness: .06 }),
+  box: new THREE.MeshStandardMaterial({ color: 0xd7dae0, roughness: .72, metalness: .03 }),
+  wall: new THREE.MeshStandardMaterial({ color: 0xc7cdd6, roughness: .75, metalness: .02 })
+};
+const executedMaterial = new THREE.MeshBasicMaterial({ color: 0x0071e3 });
+const executedLine = new THREE.Mesh(new THREE.BufferGeometry(), executedMaterial);
 scene.add(executedLine);
 const drone = new THREE.Group();
-const body = new THREE.Mesh(new THREE.BoxGeometry(.44, .28, .16),
-  new THREE.MeshStandardMaterial({ color: 0xf3e86a, roughness: .5 }));
+const shellMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .3, metalness: .12 });
+const graphiteMaterial = new THREE.MeshStandardMaterial({ color: 0x30343b, roughness: .48, metalness: .25 });
+const silverMaterial = new THREE.MeshStandardMaterial({ color: 0x9fa8b5, roughness: .35, metalness: .4 });
+const body = new THREE.Mesh(new RoundedBoxGeometry(.44, .28, .16, 3, .06), shellMaterial);
 drone.add(body);
+const underside = new THREE.Mesh(new RoundedBoxGeometry(.37, .24, .07, 3, .03), graphiteMaterial);
+underside.position.z = -.075;
+drone.add(underside);
+const rotors = [];
 for (const x of [-.28, .28]) for (const y of [-.28, .28]) {
-  const arm = new THREE.Mesh(new THREE.CylinderGeometry(.035, .035, .4, 8),
-    new THREE.MeshStandardMaterial({ color: 0xc3cbc5 }));
-  arm.rotation.z = -Math.atan2(x, y);
+  const arm = new THREE.Mesh(new THREE.CylinderGeometry(.025, .035, Math.hypot(x, y), 12), graphiteMaterial);
+  arm.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(x, y, 0).normalize());
   arm.position.set(x / 2, y / 2, 0);
   drone.add(arm);
-  const rotor = new THREE.Mesh(new THREE.TorusGeometry(.16, .018, 5, 24),
-    new THREE.MeshBasicMaterial({ color: 0xf3e86a }));
-  rotor.position.set(x, y, .06);
+  const motor = new THREE.Mesh(new THREE.CylinderGeometry(.045, .045, .07, 20), silverMaterial);
+  motor.rotation.x = Math.PI / 2;
+  motor.position.set(x, y, .035);
+  drone.add(motor);
+  const guard = new THREE.Mesh(new THREE.TorusGeometry(.16, .012, 8, 40), silverMaterial);
+  guard.position.set(x, y, .055);
+  drone.add(guard);
+  const rotor = new THREE.Mesh(new RoundedBoxGeometry(.29, .028, .012, 2, .005), graphiteMaterial);
+  rotor.position.set(x, y, .085);
+  rotor.rotation.z = x * y > 0 ? .6 : -.6;
+  rotors.push(rotor);
   drone.add(rotor);
 }
-const nose = new THREE.Mesh(new THREE.ConeGeometry(.09, .25, 8),
-  new THREE.MeshBasicMaterial({ color: 0xf3e86a }));
-nose.rotation.z = -Math.PI / 2;
-nose.position.x = .4;
-drone.add(nose);
+const lens = new THREE.Mesh(new THREE.CylinderGeometry(.045, .045, .035, 24), graphiteMaterial);
+lens.rotation.z = -Math.PI / 2;
+lens.position.set(.225, 0, -.02);
+drone.add(lens);
+const statusLight = new THREE.Mesh(new RoundedBoxGeometry(.19, .045, .012, 2, .005),
+  new THREE.MeshBasicMaterial({ color: 0x0071e3 }));
+statusLight.position.set(.07, 0, .085);
+drone.add(statusLight);
+drone.traverse(item => { if (item.isMesh) { item.castShadow = true; item.receiveShadow = true; } });
+const droneLocator = new THREE.Mesh(new THREE.TorusGeometry(.55, .018, 6, 64),
+  new THREE.MeshBasicMaterial({ color: 0x0071e3, transparent: true, opacity: .55 }));
+droneLocator.position.z = -.13;
+drone.add(droneLocator);
 scene.add(drone);
 
 function marker(text, color) {
@@ -85,11 +126,21 @@ function marker(text, color) {
   const canvas = document.createElement("canvas");
   canvas.width = 256; canvas.height = 64;
   const context = canvas.getContext("2d");
-  context.font = "bold 24px Arial";
-  context.fillStyle = `#${new THREE.Color(color).getHexString()}`;
-  context.textAlign = "center";
-  context.fillText(text, 128, 40);
-  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(canvas),
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  const paintLabel = () => {
+    context.clearRect(0, 0, 256, 64);
+    context.fillStyle = "#ffffffee";
+    context.beginPath(); context.roundRect(64, 8, 128, 48, 24); context.fill();
+    context.font = '500 24px "Inter", sans-serif';
+    context.fillStyle = `#${new THREE.Color(color).getHexString()}`;
+    context.textAlign = "center";
+    context.fillText(text, 128, 40);
+    texture.needsUpdate = true;
+  };
+  paintLabel();
+  document.fonts.ready.then(paintLabel);
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture,
     depthTest: false, transparent: true }));
   sprite.scale.set(2.4, .6, 1);
   sprite.position.z = .75;
@@ -97,7 +148,7 @@ function marker(text, color) {
   scene.add(group);
   return group;
 }
-const startMarker = marker("START", 0x83e7c0), goalMarker = marker("GOAL", 0xf3e86a);
+const startMarker = marker("Start", 0x087f73), goalMarker = marker("Goal", 0xc56b14);
 let meshes = [];
 function releaseGroup(group) {
   [...group.children].forEach(child => {
@@ -110,14 +161,14 @@ function drawObstacles() {
   meshes = [];
   for (const o of sceneData.obstacles) {
     const geometry = o.type === "pillar"
-      ? new THREE.CylinderGeometry(o.r, o.r, o.h, 32)
-      : new THREE.BoxGeometry(o.w, o.d, o.h);
+      ? new THREE.CylinderGeometry(o.r, o.r, o.h, 64)
+      : new RoundedBoxGeometry(o.w, o.d, o.h, 2, Math.min(.06, o.w * .08, o.d * .08));
     if (o.type === "pillar") geometry.rotateX(Math.PI / 2);
-    const mesh = new THREE.Mesh(geometry, obstacleMaterial);
+    const mesh = new THREE.Mesh(geometry, obstacleMaterials[o.type]);
     mesh.position.set(o.x, o.y, o.h / 2);
     mesh.userData.obstacle = o;
-    const edge = new THREE.LineSegments(new THREE.EdgesGeometry(geometry, 25), edgeMaterial);
-    mesh.add(edge);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
     obstacleGroup.add(mesh);
     meshes.push(mesh);
   }
@@ -167,9 +218,19 @@ function drawDepth(depth) {
   }
   context.putImageData(image, 0, 0);
 }
+// Straight segments retain the recorded path; only its display thickness changes.
+function pathGeometry(points, radius) {
+  const curve = new THREE.CurvePath();
+  for (let i = 1; i < points.length; i++) {
+    if (points[i].distanceToSquared(points[i - 1]) > 1e-12)
+      curve.add(new THREE.LineCurve3(points[i - 1], points[i]));
+  }
+  return curve.curves.length ? new THREE.TubeGeometry(curve, Math.max(24, points.length * 2), radius, 6, false)
+    : new THREE.BufferGeometry();
+}
 function updatePath() {
   executedLine.geometry.dispose();
-  executedLine.geometry = new THREE.BufferGeometry().setFromPoints(path.map(p => new THREE.Vector3(...p)));
+  executedLine.geometry = pathGeometry(path.map(p => new THREE.Vector3(...p)), .045);
 }
 function updateStats() {
   const speed = norm(state.v);
@@ -258,16 +319,17 @@ function infer(depth, observation) {
   });
 }
 const candidateMaterials = [
-  new THREE.LineBasicMaterial({ color: 0x798780, transparent: true, opacity: .28 }),
-  new THREE.LineBasicMaterial({ color: 0xf3e86a })
+  new THREE.LineBasicMaterial({ color: 0x73869d, transparent: true, opacity: .32 }),
+  new THREE.MeshBasicMaterial({ color: 0xd18116 })
 ];
 function drawCandidates(curves, choice) {
   releaseGroup(candidateGroup);
   curves.forEach((curve, i) => {
     const positions = [];
     for (let j = 0; j <= 40; j++) positions.push(new THREE.Vector3(...evaluateCurve(curve, j / 20).p));
-    const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(positions),
-      candidateMaterials[Number(i === choice)]);
+    const line = i === choice
+      ? new THREE.Mesh(pathGeometry(positions, .035), candidateMaterials[1])
+      : new THREE.Line(new THREE.BufferGeometry().setFromPoints(positions), candidateMaterials[0]);
     line.userData.selected = i === choice;
     line.visible = i === choice || $("show-candidates").checked;
     candidateGroup.add(line);
@@ -312,7 +374,7 @@ async function planningStep({ quiet = false } = {}) {
         const points = Array.from({ length: 61 }, (_, i) =>
           new THREE.Vector3(...evaluateCurve(terminalPlan.curve,
             terminalPlan.duration * i / 60, terminalPlan.duration).p));
-        candidateGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), candidateMaterials[1]));
+        candidateGroup.add(new THREE.Mesh(pathGeometry(points, .035), candidateMaterials[1]));
       } else drawCandidates(curves, selected);
       drawDepth(depth);
     }
@@ -561,6 +623,8 @@ function animate() {
       ? Math.min(1, (performance.now() - animationStart) / (100 / Number($("simulation-rate").value))) : 1;
     const position = previousPosition ? state.p.map((v, i) => previousPosition[i] + (v - previousPosition[i]) * amount) : state.p;
     drone.position.set(...position); drone.rotation.z = state.yaw;
+    if (running && !matchMedia("(prefers-reduced-motion: reduce)").matches)
+      rotors.forEach((rotor, i) => { rotor.rotation.z = performance.now() * .035 * (i % 2 ? 1 : -1); });
   }
   controls.update(); renderer.render(scene, camera);
 }
@@ -569,11 +633,11 @@ const initialSceneEpoch = epoch;
 Promise.all([readyPromise, fetch("assets/planner-metadata.json?v=level-terminal-20261113").then(response => {
   if (!response.ok) throw new Error("Model metadata could not be loaded.");
   return response.json();
-}), fetch("assets/demo-seeds.json?v=level-terminal-20261113").then(
+}), fetch("assets/demo-seeds.json?v=studio-demo-20261114").then(
   response => response.ok ? response.json() : null)]).then(async ([, model, catalog]) => {
   if (catalog) {
     const hashes = await Promise.all(["sandbox-core.js", "demo-execution.js", "demo.js"].map(async name => {
-      const source = await fetch(new URL(`${name}?v=level-terminal-20261113`, import.meta.url));
+      const source = await fetch(new URL(`${name}?v=${name === "demo.js" ? "studio-demo-20261114" : "level-terminal-20261113"}`, import.meta.url));
       if (!source.ok) throw new Error("Demo source could not be checked.");
       const digest = await crypto.subtle.digest("SHA-256", await source.arrayBuffer());
       return [...new Uint8Array(digest)].map(value => value.toString(16).padStart(2, "0")).join("");
