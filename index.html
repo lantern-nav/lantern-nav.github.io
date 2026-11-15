@@ -13,7 +13,7 @@
   <link rel="preload" href="assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/project-fonts.css?v=studio-20261114">
-  <link rel="stylesheet" href="style.css?v=film-entry-20261115">
+  <link rel="stylesheet" href="style.css?v=demo-first-20261115">
   <script src="project.js?v=film-page-20261115" defer></script>
 </head>
 <body>
@@ -26,9 +26,9 @@
         <div class="explore-links">
           <a href="#overview">Overview</a>
           <a href="#method">The method</a>
+          <a href="#demo">Interactive demo</a>
           <a href="#results">Evaluation</a>
           <a href="video.html">Full video</a>
-          <a href="#demo">Interactive demo</a>
           <a href="#resources">Resources</a>
         </div>
       </details>
@@ -94,7 +94,20 @@
       </div>
     </section>
 
-    <section class="section band" id="results" aria-labelledby="results-heading">
+    <section class="section band" id="demo" aria-labelledby="demo-heading">
+      <div class="wrap">
+      <div class="section-heading" data-reveal><p class="eyebrow">Interactive demo</p><h2 id="demo-heading">Your scene.<br>LANTERN's next move.</h2><p>Live planning in a scene of your own.</p></div>
+      <div class="demo-preview" id="demo-preview">
+        <img src="assets/live-demo-preview.jpg?v=studio-demo-20261114" alt="A generated obstacle scene with live LANTERN candidate trajectories" width="1202" height="510" loading="lazy">
+        <button class="launch-demo" id="launch-demo" type="button"><img src="assets/play.svg" alt="">Run live demo</button>
+      </div>
+      <iframe class="live-sandbox" id="live-sandbox" data-src="demo.html?embed=1&amp;v=studio-demo-20261114" title="Live LANTERN planner with user-generated obstacles" hidden></iframe>
+      <div class="demo-caption"><p>Fixed height · 5m/s model · Ideal tracking</p><div class="demo-links"><button id="close-demo" type="button" hidden>Close demo <img src="assets/x.svg" alt=""></button><a href="demo.html" target="_blank" rel="noopener">Open full demo <img src="assets/arrow-up-right.svg" alt=""></a></div></div>
+      <noscript><p>The interactive planner requires JavaScript.</p></noscript>
+      </div>
+    </section>
+
+    <section class="section" id="results" aria-labelledby="results-heading">
       <div class="wrap">
       <div class="section-heading" data-reveal><p class="eyebrow">Evaluation</p><h2 id="results-heading">Small network.<br>Measured performance.</h2></div>
       <div class="performance-highlights" data-reveal>
@@ -137,33 +150,6 @@
         <video class="wide-video" controls playsinline preload="none" poster="assets/stopping-poster.jpg" aria-label="Independent stopping comparison: LANTERN, no goal queries, and YOPO"><source src="assets/stopping.mp4" type="video/mp4"></video>
       </div>
       <p class="figure-caption">Error ≤ 0.1 m and speed ≤ 0.2m/s, held for 0.5 s. Video: independent qualitative seed 61002. Counts: 50-trial evaluation.</p>
-      </div>
-    </section>
-
-    <section class="film-entry" id="flights" aria-labelledby="flights-heading">
-      <div class="wrap film-entry-inner">
-        <div>
-          <p class="eyebrow">Full video</p>
-          <h2 id="flights-heading">LANTERN in motion.</h2>
-          <p class="film-entry-description">Method, simulation, and real flights.</p>
-        </div>
-        <div class="film-entry-action">
-          <a class="primary" href="video.html"><img src="assets/play.svg" alt="">Watch full video</a>
-          <span>4 min 06 sec</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section band" id="demo" aria-labelledby="demo-heading">
-      <div class="wrap">
-      <div class="section-heading" data-reveal><p class="eyebrow">Interactive demo</p><h2 id="demo-heading">Your scene.<br>LANTERN's next move.</h2><p>Live planning in a scene of your own.</p></div>
-      <div class="demo-preview" id="demo-preview">
-        <img src="assets/live-demo-preview.jpg?v=studio-demo-20261114" alt="A generated obstacle scene with live LANTERN candidate trajectories" width="1202" height="510" loading="lazy">
-        <button class="launch-demo" id="launch-demo" type="button"><img src="assets/play.svg" alt="">Run live demo</button>
-      </div>
-      <iframe class="live-sandbox" id="live-sandbox" data-src="demo.html?embed=1&amp;v=studio-demo-20261114" title="Live LANTERN planner with user-generated obstacles" hidden></iframe>
-      <div class="demo-caption"><p>Fixed height · 5m/s model · Ideal tracking</p><div class="demo-links"><button id="close-demo" type="button" hidden>Close demo <img src="assets/x.svg" alt=""></button><a href="demo.html" target="_blank" rel="noopener">Open full demo <img src="assets/arrow-up-right.svg" alt=""></a></div></div>
-      <noscript><p>The interactive planner requires JavaScript.</p></noscript>
       </div>
     </section>
 

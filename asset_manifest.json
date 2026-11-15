@@ -342,8 +342,8 @@
     },
     {
       "path": "index.html",
-      "sha256": "c6a44f90f29e1d187eb0d34ba9b2304285d7d71e963ed737e91c09b28da07247",
-      "bytes": 14807
+      "sha256": "6c92122eb9cf03d59171c76804bd14bc8ce15626b5f4622ff5aa5b47a76bbe27",
+      "bytes": 14226
     },
     {
       "path": "planner-worker.js",
@@ -357,8 +357,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "7ad2f41569d1e38d1839a2f5023caf84b735596bd6d8a8894d21c0c8ba49d8e6",
-      "bytes": 2611
+      "sha256": "b33c6619d9690e8ba2c9c171d90377cff344846441961ff6d11985fa2d5b9bca",
+      "bytes": 2609
     },
     {
       "path": "sandbox-core.js",
@@ -372,13 +372,13 @@
     },
     {
       "path": "style.css",
-      "sha256": "18f6af79090c88fbf6873c90d94d4015f5c21396a092d0a3446fe3e5d3b42a07",
-      "bytes": 21272
+      "sha256": "b6763272fe9523fa5bdc675da94c9ee72195b35e8700e788ae1132c197e170c7",
+      "bytes": 20432
     },
     {
       "path": "video.html",
-      "sha256": "5dd8fa4ae2be89042501edcdb1d2b471eb5b4bee0a44f934507d6acafe223167",
-      "bytes": 2793
+      "sha256": "6d710f0fc489de79f287d4f57fdbf4376ce071b509686aed8bdeef0cfd561d47",
+      "bytes": 2794
     }
   ],
   "homepage_layout": "studio-20261114",
@@ -406,12 +406,13 @@
   },
   "demo_presentation": "studio-demo-20261114",
   "video_page": {
-    "version": "film-entry-20261115",
+    "version": "demo-first-20261115",
     "path": "video.html",
     "duration_s": 245.93333333333334,
     "video_sha256": "dc94cf817d1ee8b10a5648ad8f1266c950585696c80f9e7fb1ff271374bfc17c",
     "zip_sha256": "350bf1cb25e5c1dbfff0c8845e9b1b2faa668cc19bd38fb7fa48d1d08da892ec",
     "english_subtitles_burned_in": true,
-    "homepage_flight_gallery_removed": true
+    "homepage_flight_gallery_removed": true,
+    "homepage_video_band_removed": true
   }
 }
