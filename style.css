@@ -60,9 +60,11 @@ h1 { font-size: 88px; line-height: 1.05; font-weight: 600; }
 .author-note { margin-top: 14px; font-size: 12px; color: var(--muted); }
 .paper-actions { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 24px; margin-top: 21px; font-size: 15px; }
 .hero-media { position: relative; width: min(960px, calc(100% - 100px)); margin: 36px auto 0; background: #000; }
+.hero-film-link { display: block; }
 #hero-video { width: 100%; aspect-ratio: 16/9; object-fit: contain; }
 .hero-media-label { position: absolute; left: 24px; bottom: 24px; display: flex; flex-direction: column; padding: 10px 14px; background: #0009; color: #fff; font-size: 13px; line-height: 1.5; backdrop-filter: blur(10px); }
-.hero-media-label span:first-child { font-weight: 600; }
+.hero-media-label span:first-child { display: flex; align-items: center; gap: 7px; font-weight: 600; }
+.hero-media-label img { width: 12px; height: 12px; }
 .hero-media-label span:last-child { color: #e4e4e8; font-size: 12px; }
 .round-control { width: 42px; height: 42px; border: 0; border-radius: 50%; background: #ffffffeb; display: grid; place-items: center; }
 .round-control img { width: 17px; height: 17px; filter: invert(1); }

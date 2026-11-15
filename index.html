@@ -13,7 +13,7 @@
   <link rel="preload" href="assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/project-fonts.css?v=studio-20261114">
-  <link rel="stylesheet" href="style.css?v=film-page-20261115">
+  <link rel="stylesheet" href="style.css?v=film-entry-20261115">
   <script src="project.js?v=film-page-20261115" defer></script>
 </head>
 <body>
@@ -48,8 +48,10 @@
         </div>
       </div>
       <div class="hero-media">
-        <video id="hero-video" muted loop playsinline preload="metadata" poster="assets/fpv-poster.jpg" aria-label="First-person outdoor quadrotor flight"><source src="assets/fpv.mp4" type="video/mp4"></video>
-        <div class="hero-media-label"><span>Through the trees.</span><span>A first-person view.</span></div>
+        <a class="hero-film-link" href="video.html" aria-label="Watch the full LANTERN research video">
+          <video id="hero-video" muted loop playsinline preload="metadata" poster="assets/fpv-poster.jpg" aria-label="First-person outdoor quadrotor flight"><source src="assets/fpv.mp4" type="video/mp4"></video>
+          <div class="hero-media-label"><span><img src="assets/play.svg" alt="">Watch full video</span><span>4 min 06 sec</span></div>
+        </a>
         <button id="hero-playback" class="round-control" type="button" aria-label="Play first-person video" title="Play first-person video" hidden><img src="assets/play.svg" alt=""></button>
       </div>
     </section>

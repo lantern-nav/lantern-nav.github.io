@@ -342,8 +342,8 @@
     },
     {
       "path": "index.html",
-      "sha256": "68b7977f63d05c3e8f4a58de3923c723ba93c5442c9894f46cf03fd80ab80edb",
-      "bytes": 14659
+      "sha256": "c6a44f90f29e1d187eb0d34ba9b2304285d7d71e963ed737e91c09b28da07247",
+      "bytes": 14807
     },
     {
       "path": "planner-worker.js",
@@ -372,8 +372,8 @@
     },
     {
       "path": "style.css",
-      "sha256": "0705ba5fd04e1b7703e5343eb650db8219e92b5390a333d214b55d94d7a0d77c",
-      "bytes": 21137
+      "sha256": "18f6af79090c88fbf6873c90d94d4015f5c21396a092d0a3446fe3e5d3b42a07",
+      "bytes": 21272
     },
     {
       "path": "video.html",
@@ -406,7 +406,7 @@
   },
   "demo_presentation": "studio-demo-20261114",
   "video_page": {
-    "version": "film-page-20261115",
+    "version": "film-entry-20261115",
     "path": "video.html",
     "duration_s": 245.93333333333334,
     "video_sha256": "dc94cf817d1ee8b10a5648ad8f1266c950585696c80f9e7fb1ff271374bfc17c",
