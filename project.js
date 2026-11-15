@@ -96,23 +96,6 @@ document.querySelectorAll("[data-method]").forEach(button => {
     document.querySelector("#method-panel").setAttribute("aria-labelledby", button.id);
   });
 });
-const flights = {
-  outdoor5: "Outdoor 5 · 5m/s · VINS estimate",
-  indoor: "Indoor · Motion-capture estimate"
-};
-document.querySelectorAll("[data-flight]").forEach(button => {
-  button.addEventListener("click", () => {
-    selectTab(button, button.parentElement);
-    const key = button.dataset.flight, video = document.querySelector("#flight-video");
-    video.pause();
-    video.poster = `assets/${key}-poster.jpg`;
-    video.querySelector("source").src = `assets/${key}.mp4`;
-    video.setAttribute("aria-label", flights[key]);
-    video.load();
-    document.querySelector("#flight-description").textContent = flights[key];
-    document.querySelector("#flight-panel").setAttribute("aria-labelledby", button.id);
-  });
-});
 document.querySelectorAll('[role="tablist"]').forEach(group => {
   group.addEventListener("keydown", event => {
     const buttons = [...group.querySelectorAll('[role="tab"]')], current = buttons.indexOf(document.activeElement);

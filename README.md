@@ -3,8 +3,10 @@
 A Lightweight Trajectory-Set Planner for Quadrotor Navigation
 
 Anonymous authors. The homepage contains the method figures, measured paper
-results, selected flight recordings and an interactive browser demonstration.
-The complete submission film remains a supplementary download.
+results, a full-video link and an interactive browser demonstration.
+Watch the complete submission film on `video.html`, or download its MP4
+and supplementary ZIP. The homepage retains the first-person preview
+and stopping comparison.
 
 Run `python serve.py --port 8788` and open the printed address.
 The browser performs fresh ONNX inference; no recorded path drives the flight.

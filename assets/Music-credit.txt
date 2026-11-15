@@ -1,0 +1,6 @@
+Music: "Horizons" by Scott Buckley.
+Released under CC BY 4.0.
+Source: https://www.scottbuckley.com.au/library/horizons/
+Artist: https://www.scottbuckley.com.au/
+License: https://creativecommons.org/licenses/by/4.0/
+Changes: excerpt, equalization, gentle leveling, fades and narration mix.

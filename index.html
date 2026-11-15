@@ -13,8 +13,8 @@
   <link rel="preload" href="assets/fonts/inter-tight-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/project-fonts.css?v=studio-20261114">
-  <link rel="stylesheet" href="style.css?v=studio-demo-20261114">
-  <script src="project.js?v=studio-20261114" defer></script>
+  <link rel="stylesheet" href="style.css?v=film-page-20261115">
+  <script src="project.js?v=film-page-20261115" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -27,7 +27,7 @@
           <a href="#overview">Overview</a>
           <a href="#method">The method</a>
           <a href="#results">Evaluation</a>
-          <a href="#flights">Real flights</a>
+          <a href="video.html">Full video</a>
           <a href="#demo">Interactive demo</a>
           <a href="#resources">Resources</a>
         </div>
@@ -138,18 +138,17 @@
       </div>
     </section>
 
-    <section class="section" id="flights" aria-labelledby="flights-heading">
-      <div class="wrap">
-        <div class="section-heading" data-reveal><p class="eyebrow">On the quadrotor</p><h2 id="flights-heading">From the lab.<br>Into the trees.</h2><p>Selected indoor and outdoor deployment recordings.</p></div>
-        <div class="tabs flight-tabs" role="tablist" aria-label="Recorded flight selection">
-          <button role="tab" id="flight-outdoor5" aria-controls="flight-panel" aria-selected="true" tabindex="0" data-flight="outdoor5">Outdoor 5</button>
-          <button role="tab" id="flight-indoor" aria-controls="flight-panel" aria-selected="false" tabindex="-1" data-flight="indoor">Indoor</button>
+    <section class="film-entry" id="flights" aria-labelledby="flights-heading">
+      <div class="wrap film-entry-inner">
+        <div>
+          <p class="eyebrow">Full video</p>
+          <h2 id="flights-heading">LANTERN in motion.</h2>
+          <p class="film-entry-description">Method, simulation, and real flights.</p>
         </div>
-        <div id="flight-panel" role="tabpanel" aria-labelledby="flight-outdoor5">
-          <video id="flight-video" class="wide-video" controls playsinline preload="metadata" poster="assets/outdoor5-poster.jpg" aria-label="Outdoor experiment 5 at 5m/s"><source src="assets/outdoor5.mp4" type="video/mp4"></video>
-          <p class="figure-caption" id="flight-description" aria-live="polite">Outdoor 5 · 5m/s · VINS estimate</p>
+        <div class="film-entry-action">
+          <a class="primary" href="video.html"><img src="assets/play.svg" alt="">Watch full video</a>
+          <span>4 min 06 sec</span>
         </div>
-        <p class="figure-caption">Dials show recorded velocity estimates. Indoor: motion capture. Outdoor: VINS.</p>
       </div>
     </section>
 
@@ -172,7 +171,8 @@
       <p>LANTERN: A Lightweight Trajectory-Set Planner for Quadrotor Navigation</p>
       <div class="resource-links">
         <a class="primary" href="assets/LANTERN_paper.pdf?v=paper-20261113-bce1fd978200" target="_blank" rel="noopener"><img src="assets/file-text.svg" alt="">Paper PDF</a>
-        <a href="assets/LANTERN_multimedia.zip?v=horizons-v11-20261112" download><img src="assets/download.svg" alt="">Supplementary video</a>
+        <a href="video.html"><img src="assets/play.svg" alt="">Full video</a>
+        <a href="assets/LANTERN_multimedia.zip?v=arrival-cut-v13-20261113" download><img src="assets/download.svg" alt="">Supplementary video</a>
         <a href="https://anonymous.4open.science/r/LANTERN-4944/" target="_blank" rel="noopener"><img src="assets/code-xml.svg" alt="">Repository <img src="assets/arrow-up-right.svg" alt=""></a>
       </div>
       <p class="figure-caption">Anonymous source repository.</p>

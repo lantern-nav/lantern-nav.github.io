@@ -131,8 +131,22 @@ td > span { margin-left: 2px; font-size: 10px; color: var(--muted); }
 .stop-totals dd { font-size: 44px; font-variant-numeric: tabular-nums; margin: 8px 0 0; line-height: 1; }
 .stop-totals dd span { font-size: 20px; color: var(--muted); font-weight: 500; margin-left: 3px; }
 .wide-video { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: contain; }
-.flight-tabs { min-width: 240px; }
-.flight-tabs button { flex: 1; }
+.film-entry { padding-block: 72px; }
+.film-entry-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+.film-entry .eyebrow { font-size: 14px; margin-bottom: 14px; color: var(--muted); }
+.film-entry h2 { font-size: 40px; line-height: 1.15; }
+.film-entry-description { margin-top: 14px; color: var(--muted); font-size: 16px; }
+.film-entry-action { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.film-entry-action > span { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.film-page { padding-top: 112px; padding-bottom: 64px; }
+.film-heading { text-align: center; margin-bottom: 32px; }
+.film-heading h1 { font-size: 48px; line-height: 1.1; }
+.film-heading p { margin-top: 12px; color: var(--muted); font-size: 15px; }
+.film-stage { width: min(1120px, calc(100% - 100px)); margin-inline: auto; }
+.film-downloads { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-top: 22px; }
+.film-downloads .resource-links { justify-content: flex-start; margin-top: 0; gap: 24px; }
+.film-credit { min-height: 44px; display: inline-flex; align-items: center; font-size: 12px; color: var(--muted); white-space: nowrap; }
+.film-credit:hover { text-decoration: underline; text-underline-offset: 4px; }
 .demo-preview { position: relative; aspect-ratio: 1202/510; background: #f5f5f7; }
 .demo-preview > img { width: 100%; height: 100%; object-fit: contain; }
 .launch-demo { position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; gap: 10px; padding: 13px 25px; border: 0; border-radius: 999px; background: var(--blue); color: #fff; font-size: 15px; white-space: nowrap; font-weight: 500; box-shadow: 0 2px 15px #0003; }
@@ -181,6 +195,7 @@ dialog > img { width: 100%; height: 100%; object-fit: contain; }
 }
 @media (max-width: 1000px) {
   .wrap, .narrow { width: calc(100% - 64px); }
+  .film-stage { width: calc(100% - 64px); }
   .section { padding-block: 100px; }
   h2 { font-size: 56px; }
   .hero-media { width: min(760px, calc(100% - 64px)); }
@@ -194,6 +209,18 @@ dialog > img { width: 100%; height: 100%; object-fit: contain; }
 }
 @media (max-width: 700px) {
   .wrap, .narrow { width: calc(100% - 40px); }
+  .film-entry { padding-block: 48px; }
+  .film-entry-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .film-entry h2 { font-size: 32px; }
+  .film-entry-description { font-size: 14px; }
+  .film-entry-action { flex-direction: row; gap: 18px; }
+  .film-page { padding-top: 100px; padding-bottom: 40px; }
+  .film-heading { margin-bottom: 24px; }
+  .film-heading h1 { font-size: 40px; }
+  .film-heading p { font-size: 13px; }
+  .film-stage { width: 100%; }
+  .film-downloads { margin-inline: 20px; flex-direction: column; gap: 8px; }
+  .film-downloads .resource-links { gap: 12px 24px; }
   .site-header { top: 8px; height: 52px; padding: 0 9px 0 16px; gap: 10px; width: calc(100% - 24px); border-radius: 22px; }
   .wordmark { font-size: 18px; }
   nav { gap: 5px; font-size: 11px; }

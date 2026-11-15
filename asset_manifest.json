@@ -2,7 +2,7 @@
   "anonymous_review": true,
   "authors": "Anonymous authors",
   "real_time_inference": true,
-  "video_version": "LANTERN_RAL_subtitled_v7_20261112",
+  "video_version": "LANTERN_RAL_arrival_cut_v13_20261113",
   "english_subtitles_burned_in": true,
   "assets": [
     {
@@ -32,8 +32,8 @@
     },
     {
       "path": "assets/English.srt",
-      "sha256": "efc4924e41171ed889581956542c4ff306432b2dae05653a836bb2acc50e3bf7",
-      "bytes": 2686
+      "sha256": "91956346df8e0348b3b8658f372a26b9e89fddc2f43ba9a3aaae7be47f49a118",
+      "bytes": 2600
     },
     {
       "path": "assets/expand.svg",
@@ -52,8 +52,8 @@
     },
     {
       "path": "assets/film-poster.jpg",
-      "sha256": "c5dd692c66a4038e38f07fb7acb6cab91ecfdec3e7da58a829f224741fbd41d7",
-      "bytes": 61849
+      "sha256": "dd6805817c8618eca304ec1161bdd9ab42703e6f5a11190d6d029085eb4f8b61",
+      "bytes": 290428
     },
     {
       "path": "assets/fonts/google-sans-latin.woff2",
@@ -137,8 +137,8 @@
     },
     {
       "path": "assets/LANTERN_multimedia.zip",
-      "sha256": "5006ab81dfaf0545877a9f8e24df51e3fa6348efa857de03ca17f4696a3557ff",
-      "bytes": 48953413
+      "sha256": "350bf1cb25e5c1dbfff0c8845e9b1b2faa668cc19bd38fb7fa48d1d08da892ec",
+      "bytes": 81079778
     },
     {
       "path": "assets/LANTERN_paper.pdf",
@@ -147,8 +147,8 @@
     },
     {
       "path": "assets/LANTERN_video.mp4",
-      "sha256": "cb7d261c1d8df773a71bb2eeffdba7c7d0ec3fa3b1c8c2391e16ce3404d1297d",
-      "bytes": 48947089
+      "sha256": "dc94cf817d1ee8b10a5648ad8f1266c950585696c80f9e7fb1ff271374bfc17c",
+      "bytes": 81074611
     },
     {
       "path": "assets/live-demo-preview.jpg",
@@ -186,9 +186,14 @@
       "bytes": 90508
     },
     {
+      "path": "assets/Music-credit.txt",
+      "sha256": "e26196caa458bd01f1350c6cd75604cc4a815bafb92afaa5ca2d3b466f6cfc4b",
+      "bytes": 295
+    },
+    {
       "path": "assets/narration_en.vtt",
-      "sha256": "1128e4931e2da01b95df61d9389535dddd04fa8c95e59f35bf2b66311a66d8c4",
-      "bytes": 2696
+      "sha256": "a0d1e11a2cc57c552694d060ebba120d7d39e60a54bd401eb6f0238cee3be721",
+      "bytes": 2610
     },
     {
       "path": "assets/outdoor-poster.jpg",
@@ -337,8 +342,8 @@
     },
     {
       "path": "index.html",
-      "sha256": "1e6fa4a3e52347b993686e45e78bc2b24ad62bdfdd5361fd579af2dcaf02ee79",
-      "bytes": 15337
+      "sha256": "68b7977f63d05c3e8f4a58de3923c723ba93c5442c9894f46cf03fd80ab80edb",
+      "bytes": 14659
     },
     {
       "path": "planner-worker.js",
@@ -347,13 +352,13 @@
     },
     {
       "path": "project.js",
-      "sha256": "cda2188d6f16c997cea666d4c4224188ecee209f7bfe4e24d794f2b9c414760c",
-      "bytes": 8765
+      "sha256": "36a0166a24470100d30e6e9dd0c169cb42493070c7c0345802cfd5091327ff0e",
+      "bytes": 8036
     },
     {
       "path": "README.md",
-      "sha256": "c96f834513a6aafa9ff07e811570cacec76093a1f8899ae509ac895bb339c438",
-      "bytes": 2515
+      "sha256": "7ad2f41569d1e38d1839a2f5023caf84b735596bd6d8a8894d21c0c8ba49d8e6",
+      "bytes": 2611
     },
     {
       "path": "sandbox-core.js",
@@ -367,8 +372,13 @@
     },
     {
       "path": "style.css",
-      "sha256": "9524912b19f93e9506ffbe20484dfa03d8a1977d4a8b73b9d82450d736f7f411",
-      "bytes": 19227
+      "sha256": "0705ba5fd04e1b7703e5343eb650db8219e92b5390a333d214b55d94d7a0d77c",
+      "bytes": 21137
+    },
+    {
+      "path": "video.html",
+      "sha256": "5dd8fa4ae2be89042501edcdb1d2b471eb5b4bee0a44f934507d6acafe223167",
+      "bytes": 2793
     }
   ],
   "homepage_layout": "studio-20261114",
@@ -394,5 +404,14 @@
     "demo_headings": "Inter Tight",
     "demo_body": "Inter"
   },
-  "demo_presentation": "studio-demo-20261114"
+  "demo_presentation": "studio-demo-20261114",
+  "video_page": {
+    "version": "film-page-20261115",
+    "path": "video.html",
+    "duration_s": 245.93333333333334,
+    "video_sha256": "dc94cf817d1ee8b10a5648ad8f1266c950585696c80f9e7fb1ff271374bfc17c",
+    "zip_sha256": "350bf1cb25e5c1dbfff0c8845e9b1b2faa668cc19bd38fb7fa48d1d08da892ec",
+    "english_subtitles_burned_in": true,
+    "homepage_flight_gallery_removed": true
+  }
 }
