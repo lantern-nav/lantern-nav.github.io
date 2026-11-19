@@ -342,8 +342,8 @@
     },
     {
       "path": "index.html",
-      "sha256": "6c92122eb9cf03d59171c76804bd14bc8ce15626b5f4622ff5aa5b47a76bbe27",
-      "bytes": 14226
+      "sha256": "1c6451768940506beb8960734625ea963f364f85338fb5d207f1a943955df120",
+      "bytes": 14437
     },
     {
       "path": "planner-worker.js",
@@ -372,8 +372,8 @@
     },
     {
       "path": "style.css",
-      "sha256": "b6763272fe9523fa5bdc675da94c9ee72195b35e8700e788ae1132c197e170c7",
-      "bytes": 20432
+      "sha256": "0eea191abec3cc2b2d26f8ea848cc2f7b323b5c50679e7707643ba5ceeab5722",
+      "bytes": 21348
     },
     {
       "path": "video.html",
