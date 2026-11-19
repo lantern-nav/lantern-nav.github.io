@@ -4,8 +4,7 @@ A Lightweight Trajectory-Set Planner for Quadrotor Navigation
 
 Anonymous authors. The homepage presents method figures, the interactive browser demo,
 measured results and research resources, in that order.
-Watch the complete submission film on `video.html`, or download its MP4
-and supplementary ZIP. The homepage retains the first-person preview
+Watch the complete submission film on `video.html`, or download the MP4. The homepage retains the first-person preview
 and stopping comparison.
 
 Run `python serve.py --port 8788` and open the printed address.

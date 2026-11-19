@@ -31,11 +31,6 @@
       "bytes": 328
     },
     {
-      "path": "assets/English.srt",
-      "sha256": "91956346df8e0348b3b8658f372a26b9e89fddc2f43ba9a3aaae7be47f49a118",
-      "bytes": 2600
-    },
-    {
       "path": "assets/expand.svg",
       "sha256": "c3564f0da621a56dbe82a12925ce1ebe4325b787b67b59f7198c8f3af0a00ef2",
       "bytes": 425
@@ -131,19 +126,9 @@
       "bytes": 1167302
     },
     {
-      "path": "assets/LANTERN_demo_source.zip",
-      "sha256": "72cd0dbf68f46a16837ac12fdbc77f2ae204bea5a61fb546d6d415ed1473e898",
-      "bytes": 4722580
-    },
-    {
-      "path": "assets/LANTERN_multimedia.zip",
-      "sha256": "350bf1cb25e5c1dbfff0c8845e9b1b2faa668cc19bd38fb7fa48d1d08da892ec",
-      "bytes": 81079778
-    },
-    {
       "path": "assets/LANTERN_paper.pdf",
-      "sha256": "ca35a01408a218efdcf2c32886a2c5135f044498329bcdb80667ec89dd303ab8",
-      "bytes": 4881758
+      "sha256": "3d1868b91ea8b241caf245f3698da8dad422a187eb68670b47ca26f0b533a56b",
+      "bytes": 4862523
     },
     {
       "path": "assets/LANTERN_video.mp4",
@@ -189,11 +174,6 @@
       "path": "assets/Music-credit.txt",
       "sha256": "e26196caa458bd01f1350c6cd75604cc4a815bafb92afaa5ca2d3b466f6cfc4b",
       "bytes": 295
-    },
-    {
-      "path": "assets/narration_en.vtt",
-      "sha256": "a0d1e11a2cc57c552694d060ebba120d7d39e60a54bd401eb6f0238cee3be721",
-      "bytes": 2610
     },
     {
       "path": "assets/outdoor-poster.jpg",
@@ -342,8 +322,8 @@
     },
     {
       "path": "index.html",
-      "sha256": "1c6451768940506beb8960734625ea963f364f85338fb5d207f1a943955df120",
-      "bytes": 14437
+      "sha256": "0e02206e06cd7b1dfbca0d0f8d409c397086c08463be78858fb1a34103f74f14",
+      "bytes": 14430
     },
     {
       "path": "planner-worker.js",
@@ -357,8 +337,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "b33c6619d9690e8ba2c9c171d90377cff344846441961ff6d11985fa2d5b9bca",
-      "bytes": 2609
+      "sha256": "7e60d717cf1faccca85b900c196b448bccf7c21e72bb7eb963d085101f78d669",
+      "bytes": 2586
     },
     {
       "path": "sandbox-core.js",
@@ -372,25 +352,24 @@
     },
     {
       "path": "style.css",
-      "sha256": "0eea191abec3cc2b2d26f8ea848cc2f7b323b5c50679e7707643ba5ceeab5722",
-      "bytes": 21348
+      "sha256": "63825b56c21ef757386f972a7fbb025d908296674d9b0aabe7292fe3e5d8a641",
+      "bytes": 21452
     },
     {
       "path": "video.html",
-      "sha256": "6d710f0fc489de79f287d4f57fdbf4376ce071b509686aed8bdeef0cfd561d47",
-      "bytes": 2794
+      "sha256": "e113b460bd4994fb52e4dab4117b281353fcf239c2545f25ab230714454c27d6",
+      "bytes": 2648
     }
   ],
   "homepage_layout": "studio-20261114",
   "homepage_video_choices": [
-    "stopping",
-    "outdoor5",
-    "indoor"
+    "fpv",
+    "stopping"
   ],
   "web_execution": "level-terminal-20261113",
   "selected_demo_seed_count": 70,
   "paper_revision": {
-    "version": "paper-20261113-bce1fd978200",
+    "version": "paper-20261119-74c6b0fe5b61",
     "pages": 8,
     "metadata_anonymous": true
   },
@@ -410,9 +389,11 @@
     "path": "video.html",
     "duration_s": 245.93333333333334,
     "video_sha256": "dc94cf817d1ee8b10a5648ad8f1266c950585696c80f9e7fb1ff271374bfc17c",
-    "zip_sha256": "350bf1cb25e5c1dbfff0c8845e9b1b2faa668cc19bd38fb7fa48d1d08da892ec",
     "english_subtitles_burned_in": true,
     "homepage_flight_gallery_removed": true,
-    "homepage_video_band_removed": true
+    "homepage_video_band_removed": true,
+    "downloads": [
+      "mp4"
+    ]
   }
 }
