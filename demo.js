@@ -242,9 +242,9 @@ function updateStats() {
   $("selected-query").textContent = terminalPlan ? "Terminal" :
     selected < 0 ? "--" : String(selected + 1).padStart(2, "0");
   $("inference-ms").textContent = inferenceMs ? inferenceMs.toFixed(1) : "--";
-  $("run").querySelector("span").textContent = running ? "Pause" : "Run LANTERN";
+  $("run").querySelector("span").textContent = running ? "Pause" : result ? "Run again" : "Run LANTERN";
   $("run").querySelector("img").src = `assets/${running ? "pause" : "play"}.svg`;
-  $("run").disabled = !modelReady || qualifying || Boolean(result);
+  $("run").disabled = !modelReady || qualifying;
   $("step").disabled = !modelReady || qualifying || running || Boolean(result);
 }
 function pause() {
@@ -420,20 +420,24 @@ async function planningStep({ quiet = false } = {}) {
     throw error;
   } finally { busy = false; }
 }
-async function runLoop() {
-  if (!running) return;
-  const activeEpoch = epoch, started = performance.now();
+async function runLoop(activeEpoch) {
+  if (activeEpoch !== epoch || !running) return;
+  const started = performance.now();
   try { await planningStep(); } catch { return; }
   if (activeEpoch !== epoch || !running) return;
   const delay = SETTINGS.dt * 1000 / Number($("simulation-rate").value) - (performance.now() - started);
-  setTimeout(runLoop, Math.max(0, delay));
+  setTimeout(() => runLoop(activeEpoch), Math.max(0, delay));
 }
 function start() {
   if (!modelReady || qualifying || result || running) return;
   running = true; epoch++; updateStats(); setStatus("Running LANTERN");
-  runLoop();
+  runLoop(epoch);
 }
-$("run").addEventListener("click", () => running ? pause() : start());
+$("run").addEventListener("click", () => {
+  if (running) { pause(); return; }
+  if (result) reset();
+  start();
+});
 $("step").addEventListener("click", () => planningStep().catch(() => {}));
 $("reset").addEventListener("click", reset);
 $("generate").addEventListener("click", () => {
@@ -630,26 +634,35 @@ function animate() {
 }
 drawObstacles(); reset(); animate();
 const initialSceneEpoch = epoch;
-Promise.all([readyPromise, fetch("assets/planner-metadata.json?v=level-terminal-20261113").then(response => {
-  if (!response.ok) throw new Error("Model metadata could not be loaded.");
-  return response.json();
-}), fetch("assets/demo-seeds.json?v=studio-demo-20261114").then(
-  response => response.ok ? response.json() : null)]).then(async ([, model, catalog]) => {
-  if (catalog) {
-    const hashes = await Promise.all(["sandbox-core.js", "demo-execution.js", "demo.js"].map(async name => {
-      const source = await fetch(new URL(`${name}?v=${name === "demo.js" ? "studio-demo-20261114" : "level-terminal-20261113"}`, import.meta.url));
+async function loadSeedCatalog(model) {
+  try {
+    const response = await fetch("assets/demo-seeds.json?v=demo-run-20261128");
+    if (!response.ok || !globalThis.crypto?.subtle) return null;
+    const catalog = await response.json();
+    const urls = ["./sandbox-core.js?v=level-terminal-20261113",
+      "./demo-execution.js?v=level-terminal-20261113", import.meta.url];
+    const hashes = await Promise.all(urls.map(async url => {
+      const source = await fetch(new URL(url, import.meta.url));
       if (!source.ok) throw new Error("Demo source could not be checked.");
       const digest = await crypto.subtle.digest("SHA-256", await source.arrayBuffer());
       return [...new Uint8Array(digest)].map(value => value.toString(16).padStart(2, "0")).join("");
     }));
     if (catalog.model_sha256 === model.onnx_sha256 && catalog.generator_sha256 === hashes[0] &&
-        catalog.execution_sha256 === hashes[1] && catalog.controller_sha256 === hashes[2]) seedCatalog = catalog;
-    else catalog = null;
-    if (catalog && epoch === initialSceneEpoch) setScene(
-      generateScene(catalog.default.kind, catalog.default.seed, catalog.default.count),
-      { mode: "selected", source: "offline-screened seed catalog",
-        catalog_version: catalog.version, success_selected: true });
+        catalog.execution_sha256 === hashes[1] && catalog.controller_sha256 === hashes[2]) return catalog;
+  } catch {
+    // The default scene can run without the optional screened catalog.
   }
+  return null;
+}
+Promise.all([readyPromise, fetch("assets/planner-metadata.json?v=level-terminal-20261113").then(response => {
+  if (!response.ok) throw new Error("Model metadata could not be loaded.");
+  return response.json();
+})]).then(async ([, model]) => {
+  seedCatalog = await loadSeedCatalog(model);
+  if (seedCatalog && epoch === initialSceneEpoch) setScene(
+      generateScene(seedCatalog.default.kind, seedCatalog.default.seed, seedCatalog.default.count),
+      { mode: "selected", source: "offline-screened seed catalog",
+        catalog_version: seedCatalog.version, success_selected: true });
   metadata = model; modelReady = true;
   $("randomize").disabled = false;
   $("model-label").textContent = "Level flight · ONNX / WASM";
@@ -659,7 +672,10 @@ Promise.all([readyPromise, fetch("assets/planner-metadata.json?v=level-terminal-
   $("model-label").textContent = "Model unavailable";
 });
 document.addEventListener("visibilitychange", () => { if (document.hidden) pause(); });
-window.addEventListener("pagehide", () => worker.terminate());
+window.addEventListener("pagehide", event => {
+  if (event.persisted) pause();
+  else worker.terminate();
+});
 window.addEventListener("message", event => {
   if (event.origin === location.origin && event.source === parent && event.data?.type === "lantern-pause") pause();
 });

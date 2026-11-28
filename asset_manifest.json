@@ -22,8 +22,8 @@
     },
     {
       "path": "assets/demo-seeds.json",
-      "sha256": "ff45009013820b8f7e75b9e5558f407aad44c64b1a7ba2f605c4c7f7ae9ac7c7",
-      "bytes": 3179
+      "sha256": "efeb9291b9ed73746f80d04f36e7ef093f18f2ab8ebebfc2dca49af914e77dc7",
+      "bytes": 3470
     },
     {
       "path": "assets/download.svg",
@@ -312,18 +312,18 @@
     },
     {
       "path": "demo.html",
-      "sha256": "69b1ac081be2e12ba15b2b8bbe67a2b6d92bf21000fc16bf3927d88670af3fcc",
-      "bytes": 7868
+      "sha256": "648e1700a60f75e215f7241441d6778cffef4169860663e27427e2eddd718efb",
+      "bytes": 6007
     },
     {
       "path": "demo.js",
-      "sha256": "db160b5c1d2b373a006931786d317811ee253304801049423c57af62a78cee30",
-      "bytes": 33648
+      "sha256": "7af1dc14e12281ba89fd42b1d89eb8703da2685c62badb9cc0c0702df8924755",
+      "bytes": 34020
     },
     {
       "path": "index.html",
-      "sha256": "0e02206e06cd7b1dfbca0d0f8d409c397086c08463be78858fb1a34103f74f14",
-      "bytes": 14430
+      "sha256": "90a29cc8f47915a69053729a32cb443e37e1559101029b0224dee1a4ad3bbad2",
+      "bytes": 14427
     },
     {
       "path": "planner-worker.js",

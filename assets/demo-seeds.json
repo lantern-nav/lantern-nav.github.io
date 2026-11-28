@@ -4,7 +4,7 @@
   "scope": "qualitative demonstration with geometric filtering and a web stopping controller",
   "generator_sha256": "34ccf7945edcb91b876ccfdc4f2c705c91a952db572992f3bfc35666f8552eb2",
   "execution_sha256": "74c465df925ef0ab02759cf529f2a5c1831f26d28ee9e244dc80afe162237db7",
-  "controller_sha256": "db160b5c1d2b373a006931786d317811ee253304801049423c57af62a78cee30",
+  "controller_sha256": "7af1dc14e12281ba89fd42b1d89eb8703da2685c62badb9cc0c0702df8924755",
   "model_sha256": "e2c551b3a247993ae3feb89a460bebd484a7661fba0e2b57ab6779462e19ac18",
   "fixed_altitude": true,
   "maximum_peak_altitude_m": 2,
@@ -119,5 +119,10 @@
     "execution_and_scene_editor_unchanged": true,
     "seed_selection_unchanged": true,
     "presentation_only": true
+  },
+  "run_ui_update": {
+    "previous_controller_sha256": "db160b5c1d2b373a006931786d317811ee253304801049423c57af62a78cee30",
+    "runtime_controller_sha256": "7af1dc14e12281ba89fd42b1d89eb8703da2685c62badb9cc0c0702df8924755",
+    "scene_generation_and_planning_math_unchanged": true
   }
 }

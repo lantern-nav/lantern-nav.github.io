@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="assets/project-fonts.css?v=studio-20261114">
   <link rel="stylesheet" href="demo.css?v=studio-demo-20261114">
   <script type="importmap">{"imports":{"three":"./assets/vendor/three.module.js"}}</script>
-  <script src="demo.js?v=studio-demo-20261114" type="module"></script>
+  <script src="demo.js?v=demo-run-20261128" type="module"></script>
 </head>
 <body>
   <header class="demo-header">
@@ -63,14 +63,6 @@
     </div>
   </main>
   <p class="sandbox-note">LANTERN model · <span id="scene-selection">Custom scene</span> · Ideal trajectory tracking</p>
-  <details class="model-details"><summary>Model and environment</summary>
-    <p>Randomize uses demo seeds screened for fixed-height flight, precise stopping, a final approach without loops, and a total path at most 1.35 times the start-to-goal distance. Other obstacle counts are screened with live inference before display. Manually entered seeds and edited scenes are unscreened. These selected examples are separate from the paper's benchmarks.</p>
-    <p>The publication weights run locally with web terminal tuning in ONNX Runtime Web. Each step renders a new 160 x 96 axial-depth image (90 x 60 degree field of view, 20 m range) and predicts 24 trajectory endpoints and costs. This level-flight demo projects candidates to the chosen height and ranks geometrically feasible candidates by predicted cost. Obstacle footprints are checked so the vehicle cannot fly over them.</p>
-    <p>A separate web execution controller checks a smooth quintic stop near the goal and follows it to rest when its path is clear. This controller uses the generated scene geometry; it is not part of the paper's learned planner. Its settings and seed selection are recorded in run exports. Flights are computed afresh, without recorded trajectories.</p>
-    <p>Tracking follows the analytic trajectory reference at 10 Hz, without rigid-body dynamics, sensor noise or transport delay. Collision uses a 0.22 m vehicle radius. Arrival requires 3D error at most 0.1 m and speed at most 0.2m/s for 0.5 s. Runs stop on collision, scene exit or a 40 s timeout. These interactive scenes are separate from the paper's physical simulation and evaluation results.</p>
-    <p>Checkpoint SHA-256: <code>9707db065961831e109527476ceb8eb78164b16fd3e5cf58875189e066dae13b</code></p>
-    <a href="assets/planner-metadata.json" target="_blank" rel="noopener">Model metadata</a>
-  </details>
   <noscript>JavaScript is required to run the planner.</noscript>
 </body>
 </html>
